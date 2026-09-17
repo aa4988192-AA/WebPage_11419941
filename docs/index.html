@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>藍圖咖啡 Blueprint Coffee ── 精準手沖,誠實風味</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-black:#081A2E;
+    --blueprint:#0E2A47;
+    --blueprint-line:#3E6E96;
+    --blueprint-line-soft:rgba(94,155,197,0.28);
+    --paper:#F3EEE2;
+    --paper-dim:#E7E0CE;
+    --brass:#B8863B;
+    --brass-light:#D2A662;
+    --sky:#6FA8DC;
+    --ink-on-paper:#182A38;
+    --max-w:1180px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans', sans-serif;
+    background:var(--paper);
+    color:var(--ink-on-paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  img,svg{display:block;max-width:100%;}
+  .container{max-width:var(--max-w);margin:0 auto;padding:0 32px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1px;
+    background:currentColor;
+    display:inline-block;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    line-height:1.15;
+    letter-spacing:-0.01em;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:14px 26px;
+    border-radius:2px;
+    font-family:'Work Sans', sans-serif;
+    font-size:15px;
+    font-weight:500;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .25s ease, background .25s ease, border-color .25s ease, color .25s ease;
+  }
+  .btn:focus-visible{outline:2px solid var(--sky);outline-offset:3px;}
+  .btn-primary{background:var(--brass);color:var(--ink-black);}
+  .btn-primary:hover{background:var(--brass-light);transform:translateY(-1px);}
+  .btn-ghost{border-color:var(--blueprint-line);color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--sky);color:var(--sky);}
+  .btn-ghost.on-paper{border-color:var(--ink-on-paper);color:var(--ink-on-paper);}
+  .btn-ghost.on-paper:hover{border-color:var(--brass);color:var(--brass);}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(8,26,46,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(94,155,197,0.2);
+  }
+  nav{
+    max-width:var(--max-w);margin:0 auto;padding:18px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+    color:var(--paper);
+  }
+  .logo{
+    font-family:'Fraunces', serif;
+    font-size:20px;font-weight:600;letter-spacing:0.01em;
+    color:var(--paper);display:flex;align-items:baseline;gap:8px;
+  }
+  .logo span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;letter-spacing:0.14em;color:var(--sky);
+  }
+  .nav-links{display:flex;gap:34px;font-size:14.5px;}
+  .nav-links a{opacity:0.85;transition:opacity .2s;}
+  .nav-links a:hover{opacity:1;color:var(--sky);}
+  .nav-toggle{display:none;background:none;border:none;color:var(--paper);font-size:24px;cursor:pointer;}
+
+  @media (max-width:860px){
+    .nav-links{
+      position:absolute;top:100%;left:0;right:0;
+      background:var(--ink-black);
+      flex-direction:column;gap:0;
+      max-height:0;overflow:hidden;
+      transition:max-height .3s ease;
+    }
+    .nav-links.open{max-height:320px;}
+    .nav-links a{padding:16px 32px;border-top:1px solid rgba(94,155,197,0.15);}
+    .nav-toggle{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      repeating-linear-gradient(0deg, var(--blueprint-line-soft) 0, var(--blueprint-line-soft) 1px, transparent 1px, transparent 44px),
+      repeating-linear-gradient(90deg, var(--blueprint-line-soft) 0, var(--blueprint-line-soft) 1px, transparent 1px, transparent 44px),
+      var(--blueprint);
+    color:var(--paper);
+    padding:96px 0 110px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    max-width:var(--max-w);margin:0 auto;padding:0 32px;
+    display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;
+  }
+  .hero h1{font-size:clamp(34px,4.6vw,54px);margin:20px 0 26px;color:var(--paper);}
+  .hero h1 em{font-style:normal;color:var(--brass-light);}
+  .hero p.lede{font-size:17px;max-width:46ch;color:rgba(243,238,226,0.82);margin-bottom:34px;}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap;}
+  .hero-eyebrow{color:var(--sky);margin-bottom:6px;}
+
+  .blueprint-plate{
+    position:relative;
+    border:1px solid rgba(94,155,197,0.45);
+    background:rgba(15,42,71,0.55);
+    padding:28px 22px 20px;
+  }
+  .blueprint-plate::before,.blueprint-plate::after,
+  .plate-corner-tl,.plate-corner-br{
+    content:"";position:absolute;width:14px;height:14px;
+    border-color:var(--sky);
+  }
+  .blueprint-plate::before{top:-1px;left:-1px;border-top:2px solid var(--sky);border-left:2px solid var(--sky);}
+  .blueprint-plate::after{bottom:-1px;right:-1px;border-bottom:2px solid var(--sky);border-right:2px solid var(--sky);}
+  .plate-label{
+    font-family:'IBM Plex Mono', monospace;font-size:11px;letter-spacing:0.12em;
+    color:var(--sky);display:flex;justify-content:space-between;margin-bottom:14px;opacity:0.85;
+  }
+  .plate-caption{
+    font-family:'IBM Plex Mono', monospace;font-size:11px;color:rgba(243,238,226,0.6);
+    text-align:center;margin-top:10px;letter-spacing:0.04em;
+  }
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero{padding:64px 0 76px;}
+  }
+
+  /* ---------- SECTION SHARED ---------- */
+  section{padding:104px 0;}
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(26px,3.2vw,38px);margin-top:14px;}
+  .on-dark{background:var(--ink-black);color:var(--paper);}
+  .on-dark .eyebrow{color:var(--sky);}
+  .on-paper .eyebrow{color:var(--brass);}
+
+  /* ---------- ABOUT / SPEC SHEET ---------- */
+  .about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:start;}
+  .about-grid p{font-size:16px;color:#3a4b58;max-width:52ch;margin-bottom:18px;}
+  .spec-sheet{border:1px solid #cfc6ac;background:#EAE3D0;padding:26px 28px;}
+  .spec-row{
+    display:flex;justify-content:space-between;gap:20px;
+    padding:14px 0;border-bottom:1px solid #d8d0b8;
+    font-family:'IBM Plex Mono', monospace;font-size:13px;
+  }
+  .spec-row:last-child{border-bottom:none;}
+  .spec-row dt{color:#7a6f52;letter-spacing:0.04em;}
+  .spec-row dd{font-weight:500;color:var(--ink-on-paper);text-align:right;}
+
+  @media (max-width:860px){ .about-grid{grid-template-columns:1fr;} }
+
+  /* ---------- PROCESS BLUEPRINT ---------- */
+  .process{
+    background:
+      repeating-linear-gradient(0deg, var(--blueprint-line-soft) 0, var(--blueprint-line-soft) 1px, transparent 1px, transparent 44px),
+      repeating-linear-gradient(90deg, var(--blueprint-line-soft) 0, var(--blueprint-line-soft) 1px, transparent 1px, transparent 44px),
+      var(--blueprint);
+    color:var(--paper);
+  }
+  .steps{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:0;
+    border-top:1px solid var(--blueprint-line-soft);
+  }
+  .step{
+    padding:26px 20px;border-right:1px solid var(--blueprint-line-soft);position:relative;
+  }
+  .step:last-child{border-right:none;}
+  .step-index{font-family:'IBM Plex Mono', monospace;font-size:12px;color:var(--sky);margin-bottom:14px;}
+  .step h3{font-size:19px;color:var(--paper);margin-bottom:10px;font-weight:600;}
+  .step p{font-size:13.5px;color:rgba(243,238,226,0.68);margin-bottom:10px;}
+  .step .metric{
+    font-family:'IBM Plex Mono', monospace;font-size:12px;color:var(--brass-light);
+    border-top:1px dashed rgba(94,155,197,0.4);padding-top:10px;
+  }
+  @media (max-width:960px){
+    .steps{grid-template-columns:1fr 1fr;}
+    .step{border-right:1px solid var(--blueprint-line-soft);border-bottom:1px solid var(--blueprint-line-soft);}
+    .step:nth-child(2n){border-right:none;}
+  }
+  @media (max-width:560px){
+    .steps{grid-template-columns:1fr;}
+    .step{border-right:none;}
+  }
+
+  /* ---------- BEANS ---------- */
+  .bean-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#cfc6ac;}
+  .bean-card{
+    background:var(--paper);padding:32px 26px;position:relative;
+    display:flex;flex-direction:column;height:100%;
+  }
+  .bean-tag{
+    font-family:'IBM Plex Mono', monospace;font-size:11px;color:var(--brass);
+    letter-spacing:0.08em;margin-bottom:10px;
+  }
+  .bean-card h3{font-size:22px;margin-bottom:6px;}
+  .bean-origin{font-size:13.5px;color:#6b6250;margin-bottom:18px;}
+  .bean-notes{font-size:14px;color:#3a4b58;margin-bottom:22px;flex-grow:1;}
+  .bean-meta{
+    display:flex;justify-content:space-between;align-items:center;
+    border-top:1px solid #d8d0b8;padding-top:16px;
+    font-family:'IBM Plex Mono', monospace;font-size:12.5px;
+  }
+  .bean-price{color:var(--ink-on-paper);font-weight:500;}
+  @media (max-width:900px){ .bean-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:600px){ .bean-grid{grid-template-columns:1fr;} }
+
+  /* ---------- QUOTE ---------- */
+  .quote-section{background:var(--paper-dim);}
+  .quote-wrap{max-width:760px;margin:0 auto;text-align:center;}
+  blockquote{
+    font-family:'Fraunces', serif;font-size:clamp(22px,2.6vw,30px);
+    font-weight:500;line-height:1.5;color:var(--ink-on-paper);margin-bottom:22px;
+  }
+  .quote-attr{font-family:'IBM Plex Mono', monospace;font-size:12.5px;color:var(--brass);letter-spacing:0.06em;}
+
+  /* ---------- CTA / FOOTER ---------- */
+  .cta-section{background:var(--ink-black);color:var(--paper);text-align:center;}
+  .cta-section h2{font-size:clamp(28px,3.6vw,42px);margin-bottom:18px;}
+  .cta-section p{color:rgba(243,238,226,0.72);max-width:48ch;margin:0 auto 34px;}
+  .cta-form{
+    display:flex;max-width:420px;margin:0 auto;gap:0;border:1px solid var(--blueprint-line);
+  }
+  .cta-form input{
+    flex:1;background:transparent;border:none;padding:14px 16px;
+    color:var(--paper);font-family:'Work Sans', sans-serif;font-size:14px;
+  }
+  .cta-form input::placeholder{color:rgba(243,238,226,0.45);}
+  .cta-form input:focus{outline:none;}
+  .cta-form button{
+    background:var(--brass);color:var(--ink-black);border:none;
+    padding:0 22px;font-weight:500;cursor:pointer;font-family:'Work Sans', sans-serif;
+    transition:background .2s;
+  }
+  .cta-form button:hover{background:var(--brass-light);}
+
+  footer{background:var(--ink-black);border-top:1px solid rgba(94,155,197,0.18);color:rgba(243,238,226,0.6);}
+  .footer-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding:56px 0 32px;
+    font-size:13.5px;
+  }
+  .footer-grid h4{
+    font-family:'IBM Plex Mono', monospace;font-size:11.5px;letter-spacing:0.1em;
+    color:var(--sky);margin-bottom:16px;text-transform:uppercase;
+  }
+  .footer-grid p, .footer-grid a{display:block;margin-bottom:8px;color:rgba(243,238,226,0.62);}
+  .footer-grid a:hover{color:var(--paper);}
+  .footer-bottom{
+    border-top:1px solid rgba(94,155,197,0.15);padding:22px 0;
+    font-family:'IBM Plex Mono', monospace;font-size:11.5px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+  @media (max-width:700px){ .footer-grid{grid-template-columns:1fr;} }
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="#top" class="logo">藍圖咖啡<span>BLUEPRINT COFFEE</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="開啟選單" aria-expanded="false">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">品牌故事</a>
+      <a href="#process">沖煮藍圖</a>
+      <a href="#beans">精選豆單</a>
+      <a href="#quote">顧客回饋</a>
+      <a href="#cta">立即預約</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-grid">
+    <div>
+      <p class="eyebrow hero-eyebrow">SPECIALTY POUR-OVER LAB</p>
+      <h1>手沖,是一門<br>可以<em>量測</em>的工藝。</h1>
+      <p class="lede">我們把每一支豆子的產地、烘焙曲線與沖煮參數,畫成一張精準的藍圖,只為萃出它最誠實的風味。</p>
+      <div class="hero-cta">
+        <a href="#cta" class="btn btn-primary">預約手沖體驗</a>
+        <a href="#process" class="btn btn-ghost">查看沖煮藍圖</a>
+      </div>
+    </div>
+
+    <div class="blueprint-plate reveal">
+      <div class="plate-label"><span>FIG. 01 ── V60 DRIP SCHEMATIC</span><span>SCALE 1:1</span></div>
+      <svg viewBox="0 0 360 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="V60 手沖濾杯示意圖,標註水溫、粉水比、悶蒸與總萃取時間">
+        <!-- dimension lines -->
+        <line x1="30" y1="30" x2="30" y2="230" stroke="#5E9BC5" stroke-width="1" stroke-dasharray="3 4"/>
+        <line x1="24" y1="30" x2="36" y2="30" stroke="#5E9BC5" stroke-width="1"/>
+        <line x1="24" y1="230" x2="36" y2="230" stroke="#5E9BC5" stroke-width="1"/>
+        <text x="14" y="132" fill="#6FA8DC" font-size="10" font-family="IBM Plex Mono, monospace" transform="rotate(-90 14 132)">H 120mm</text>
+
+        <!-- dripper cone -->
+        <path d="M120 60 L240 60 L195 210 L165 210 Z" fill="none" stroke="#F3EEE2" stroke-width="2"/>
+        <path d="M120 60 L240 60" stroke="#B8863B" stroke-width="2"/>
+        <!-- ribs -->
+        <line x1="140" y1="70" x2="150" y2="205" stroke="#3E6E96" stroke-width="1"/>
+        <line x1="180" y1="70" x2="180" y2="207" stroke="#3E6E96" stroke-width="1"/>
+        <line x1="220" y1="70" x2="210" y2="205" stroke="#3E6E96" stroke-width="1"/>
+
+        <!-- server -->
+        <path d="M150 230 L210 230 L205 275 L155 275 Z" fill="none" stroke="#F3EEE2" stroke-width="1.5"/>
+        <line x1="150" y1="230" x2="210" y2="230" stroke="#5E9BC5" stroke-width="1"/>
+
+        <!-- pour line + droplets -->
+        <path d="M180 20 C176 34, 184 40, 180 54" stroke="#6FA8DC" stroke-width="1.5" fill="none"/>
+        <circle cx="180" cy="18" r="2.4" fill="#6FA8DC"/>
+
+        <!-- annotation callouts -->
+        <line x1="240" y1="70" x2="288" y2="70" stroke="#5E9BC5" stroke-width="1"/>
+        <circle cx="288" cy="70" r="2" fill="#B8863B"/>
+        <text x="252" y="66" fill="#F3EEE2" font-size="11" font-family="IBM Plex Mono, monospace">水溫</text>
+        <text x="252" y="82" fill="#B8863B" font-size="11" font-family="IBM Plex Mono, monospace">92°C</text>
+
+        <line x1="205" y1="150" x2="288" y2="150" stroke="#5E9BC5" stroke-width="1"/>
+        <circle cx="288" cy="150" r="2" fill="#B8863B"/>
+        <text x="252" y="146" fill="#F3EEE2" font-size="11" font-family="IBM Plex Mono, monospace">粉水比</text>
+        <text x="252" y="162" fill="#B8863B" font-size="11" font-family="IBM Plex Mono, monospace">1 : 15</text>
+
+        <line x1="180" y1="230" x2="180" y2="300" stroke="#5E9BC5" stroke-width="1" stroke-dasharray="2 4"/>
+        <text x="118" y="316" fill="#F3EEE2" font-size="11" font-family="IBM Plex Mono, monospace">悶蒸 30s ── 總萃取 2:45</text>
+
+        <!-- corner tick -->
+        <text x="20" y="322" fill="#3E6E96" font-size="9" font-family="IBM Plex Mono, monospace">REV. 03 / SINGLE ORIGIN</text>
+      </svg>
+      <p class="plate-caption">每一支豆子,都有一張屬於自己的沖煮藍圖</p>
+    </div>
+  </div>
+</section>
+
+<section class="on-paper" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="eyebrow">OUR PHILOSOPHY</p>
+        <h2>我們只挑選,<br>經得起精準對待的豆子。</h2>
+        <p>市面上多數「高階咖啡豆」賣的是故事,我們賣的是可以被重複驗證的風味。每一批豆子進到店裡前,都先通過杯測與烘焙曲線的雙重審核 ── 只有經得起數據檢驗的豆子,才配得上一張手沖藍圖。</p>
+        <p>我們與中南美洲、東非的小農莊直接合作,採單一莊園、小批量進口,並在每包豆子上標註完整的產地履歷,讓每一次沖煮,都有跡可循。</p>
+      </div>
+      <dl class="spec-sheet reveal">
+        <div class="spec-row"><dt>豆源模式</dt><dd>單一莊園直採</dd></div>
+        <div class="spec-row"><dt>烘焙批量</dt><dd>5kg / 批,每週兩烘</dd></div>
+        <div class="spec-row"><dt>杯測標準</dt><dd>SCA 86 分以上</dd></div>
+        <div class="spec-row"><dt>建議賞味期</dt><dd>烘焙後 30 天內</dd></div>
+        <div class="spec-row"><dt>沖煮建議</dt><dd>隨包附贈參數卡</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="process">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">THE BLUEPRINT</p>
+      <h2>五個步驟,決定一杯咖啡的誠實度。</h2>
+    </div>
+  </div>
+  <div class="steps reveal">
+    <div class="step">
+      <p class="step-index">01 / WEIGH</p>
+      <h3>秤重</h3>
+      <p>以電子秤量測咖啡粉與水,誤差控制在 0.1 克內。</p>
+      <p class="metric">粉量 15g</p>
+    </div>
+    <div class="step">
+      <p class="step-index">02 / GRIND</p>
+      <h3>研磨</h3>
+      <p>中細研磨,確保顆粒均勻,避免過度萃取的雜味。</p>
+      <p class="metric">中細 / 白糖顆粒感</p>
+    </div>
+    <div class="step">
+      <p class="step-index">03 / BLOOM</p>
+      <h3>悶蒸</h3>
+      <p>小水量喚醒咖啡粉,讓封存的二氧化碳釋放出來。</p>
+      <p class="metric">30 秒</p>
+    </div>
+    <div class="step">
+      <p class="step-index">04 / POUR</p>
+      <h3>注水</h3>
+      <p>分三段緩慢注水,水流維持穩定,不沖刷濾紙邊緣。</p>
+      <p class="metric">3 段式 / 細口壺</p>
+    </div>
+    <div class="step">
+      <p class="step-index">05 / EXTRACT</p>
+      <h3>萃取</h3>
+      <p>控制總時間與萃取率,萃出乾淨而有層次的風味。</p>
+      <p class="metric">2:45 / 萃取率 20%</p>
+    </div>
+  </div>
+</section>
+
+<section class="on-paper" id="beans">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">THIS SEASON'S SELECTION</p>
+      <h2>本季精選豆單</h2>
+    </div>
+  </div>
+  <div class="bean-grid reveal">
+    <div class="bean-card">
+      <p class="bean-tag">ETHIOPIA · WASHED</p>
+      <h3>耶加雪菲 G1</h3>
+      <p class="bean-origin">產地 Yirgacheffe ・ 海拔 1,950m</p>
+      <p class="bean-notes">佛手柑、茉莉花香,尾韻帶有清亮的檸檬酸質,適合喜歡花香調的手沖入門者。</p>
+      <div class="bean-meta"><span>建議比例 1:16</span><span class="bean-price">NT$ 480</span></div>
+    </div>
+    <div class="bean-card">
+      <p class="bean-tag">PANAMA · NATURAL</p>
+      <h3>藝伎 日曬</h3>
+      <p class="bean-origin">產地 Boquete ・ 海拔 1,750m</p>
+      <p class="bean-notes">熱帶水果與紅酒發酵感,層次豐富,是我們藍圖系列中沖煮曲線最講究的一支。</p>
+      <div class="bean-meta"><span>建議比例 1:15</span><span class="bean-price">NT$ 720</span></div>
+    </div>
+    <div class="bean-card">
+      <p class="bean-tag">COLOMBIA · HONEY</p>
+      <h3>薇拉小農蜜處理</h3>
+      <p class="bean-origin">產地 Huila ・ 海拔 1,850m</p>
+      <p class="bean-notes">焦糖甜感厚實,尾段浮出核果香氣,穩定耐沖,適合每日手沖的基本款。</p>
+      <div class="bean-meta"><span>建議比例 1:15.5</span><span class="bean-price">NT$ 460</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section" id="quote">
+  <div class="container">
+    <div class="quote-wrap reveal">
+      <blockquote>「以前覺得手沖很玄,直到看到他們給的參數卡,才知道原来每一杯背後都有邏輯可循。」</blockquote>
+      <p class="quote-attr">── 店內常客,週末手沖體驗課參加者</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="cta">
+  <div class="container">
+    <h2 class="reveal">預約你的手沖時刻</h2>
+    <p class="reveal">每週六、日開放手沖體驗課,現場帶你讀懂自己第一張沖煮藍圖。</p>
+    <form class="cta-form reveal" onsubmit="event.preventDefault(); this.querySelector('button').textContent='已收到,我們會盡快聯繫';">
+      <input type="email" placeholder="輸入你的 Email" required aria-label="Email">
+      <button type="submit">預約體驗</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>藍圖咖啡 BLUEPRINT COFFEE</h4>
+        <p>用可被驗證的方式,沖出誠實的一杯咖啡。</p>
+        <p>台北市大安區手沖街 92 號</p>
+        <p>週三至週日 11:00–19:00</p>
+      </div>
+      <div>
+        <h4>探索</h4>
+        <a href="#about">品牌故事</a>
+        <a href="#process">沖煮藍圖</a>
+        <a href="#beans">精選豆單</a>
+      </div>
+      <div>
+        <h4>聯繫我們</h4>
+        <a href="#cta">預約體驗課</a>
+        <a href="mailto:hello@blueprintcoffee.tw">hello@blueprintcoffee.tw</a>
+        <a href="#top">Instagram @blueprint.coffee</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 BLUEPRINT COFFEE LAB.</span>
+      <span>ALL BREWS ARE MEASURED.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }));
+
+  // scroll reveal
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>

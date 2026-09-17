@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="綠天咖啡以小批次烘焙與手沖，讓每一支精品咖啡豆的產地風土清晰抵達杯中。">
+  <title>綠天咖啡｜從產地，到杯中的一片綠</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest: #17382b;
+      --deep-forest: #0e291f;
+      --moss: #426a4a;
+      --leaf: #9aaa72;
+      --cream: #f4f1e8;
+      --paper: #fbfaf5;
+      --oat: #ddca9e;
+      --clay: #ad7655;
+      --ink: #26342b;
+      --muted: #69776e;
+      --line: #d9ddd1;
+      --shadow: 0 20px 50px rgba(18, 45, 32, .13);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: "Noto Sans TC", sans-serif; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .container { width: min(1140px, calc(100% - 52px)); margin: 0 auto; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; color: var(--moss); font-family: "DM Mono", monospace; font-size: 11px; letter-spacing: .12em; }
+    .eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+    .title { margin: 0; font: 700 clamp(30px, 4vw, 48px)/1.3 "Noto Serif TC", serif; letter-spacing: .06em; }
+    .title strong { color: var(--moss); font: inherit; }
+    .copy { max-width: 48ch; margin: 18px 0 0; color: var(--muted); font-size: 15px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 12px 22px; border: 1px solid transparent; border-radius: 1px; font-size: 14px; font-weight: 700; letter-spacing: .04em; transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #d3c66b; outline-offset: 3px; }
+    .button-main { color: var(--deep-forest); background: var(--oat); box-shadow: 0 10px 24px rgba(7, 27, 18, .18); }
+    .button-main:hover { background: #eddaac; }
+    .button-light { border-color: rgba(255,255,255,.58); color: #fff; }
+    .button-light:hover { background: rgba(255,255,255,.12); }
+    .icon-arrow { font-size: 19px; line-height: 1; }
+
+    /* Header */
+    .header { position: absolute; z-index: 10; width: 100%; color: #fff; border-bottom: 1px solid rgba(255,255,255,.17); }
+    .nav { display: flex; min-height: 76px; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 11px; font: 700 20px/1 "Noto Serif TC", serif; letter-spacing: .11em; }
+    .brand-symbol { position: relative; width: 29px; height: 31px; border: 1px solid #bbcd91; border-radius: 50% 50% 47% 47%; color: #d9e5b6; }
+    .brand-symbol::before { content: ""; position: absolute; top: 5px; left: 13px; width: 1px; height: 20px; background: #d9e5b6; transform: rotate(32deg); transform-origin: bottom; }
+    .brand small { display: block; margin-top: 5px; color: rgba(255,255,255,.63); font: 500 8px/1 "DM Mono", monospace; letter-spacing: .14em; }
+    .nav-links { display: flex; align-items: center; gap: 27px; font-size: 13px; font-weight: 500; }
+    .nav-links a { position: relative; padding: 6px 0; }
+    .nav-links a:not(.nav-book)::after { content: ""; position: absolute; right: 0; bottom: 0; left: 0; height: 1px; background: var(--leaf); transform: scaleX(0); transform-origin: right; transition: transform .2s; }
+    .nav-links a:not(.nav-book):hover::after { transform: scaleX(1); transform-origin: left; }
+    .nav-book { padding: 8px 15px !important; border: 1px solid rgba(255,255,255,.58); }
+    .nav-book:hover { color: var(--forest); background: #fff; }
+    .menu-button { display: none; width: 40px; height: 40px; border: 0; color: #fff; background: transparent; font-size: 23px; }
+
+    /* Hero */
+    .hero { position: relative; min-height: 720px; overflow: hidden; color: #fff; background: var(--forest); }
+    .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 70% 35%, rgba(141,170,103,.28), transparent 22%), linear-gradient(110deg, #133326 0%, #17382b 47%, #2f5a3c 100%); }
+    .hero::after { content: ""; position: absolute; top: -290px; right: -215px; width: 650px; height: 650px; border: 1px solid rgba(223,235,186,.22); border-radius: 50%; box-shadow: 0 0 0 74px rgba(223,235,186,.045), 0 0 0 189px rgba(223,235,186,.025); }
+    .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr .95fr; gap: 35px; align-items: center; min-height: 720px; padding: 126px 0 72px; }
+    .hero .eyebrow { color: #c3d99a; }
+    .hero h1 { max-width: 12ch; margin: 0; font: 900 clamp(43px, 5.5vw, 70px)/1.22 "Noto Serif TC", serif; letter-spacing: .08em; }
+    .hero h1 em { color: #d2dfa9; font-style: normal; }
+    .hero-lede { max-width: 43ch; margin: 26px 0 31px; color: rgba(255,255,255,.78); font-size: 16px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; }
+    .hero-signature { margin: 29px 0 0; color: rgba(255,255,255,.5); font: 500 10px/1.6 "DM Mono", monospace; letter-spacing: .13em; }
+    .hero-visual { position: relative; height: 453px; }
+    .sun-disc { position: absolute; top: 25px; right: 9%; width: 164px; height: 164px; border-radius: 50%; background: #dce7b5; box-shadow: 0 0 72px rgba(220,231,181,.25); }
+    .hill { position: absolute; right: -10%; bottom: -2px; width: 107%; height: 75%; clip-path: polygon(0 76%, 20% 41%, 38% 61%, 62% 20%, 75% 38%, 90% 3%, 100% 25%, 100% 100%, 0 100%); background: linear-gradient(136deg, #72905c, #244c36 69%); opacity: .88; }
+    .hill::after { content: ""; position: absolute; inset: 0; background: linear-gradient(150deg, transparent 39%, rgba(8,38,25,.55) 39.5% 100%); }
+    .coffee-plant { position: absolute; z-index: 2; right: 19%; bottom: 13px; width: 255px; height: 330px; transform: rotate(-4deg); }
+    .stem { position: absolute; bottom: 0; left: 125px; width: 4px; height: 283px; border-radius: 4px; background: #d6c488; transform: rotate(12deg); transform-origin: bottom; }
+    .leaf { position: absolute; width: 82px; height: 42px; border: 3px solid #d5dfa9; border-radius: 100% 0 100% 0; background: rgba(173,202,117,.26); }
+    .leaf::after { content: ""; position: absolute; top: 50%; left: 4px; width: 68px; height: 1px; background: rgba(226,237,189,.78); transform: rotate(-28deg); transform-origin: left; }
+    .leaf-a { top: 49px; left: 35px; transform: rotate(-40deg); }
+    .leaf-b { top: 95px; right: 22px; transform: rotate(20deg) scaleX(-1); }
+    .leaf-c { top: 159px; left: 23px; transform: rotate(-43deg) scale(.84); }
+    .leaf-d { top: 204px; right: 7px; transform: rotate(24deg) scaleX(-1) scale(.74); }
+    .leaf-e { top: 5px; right: 60px; transform: rotate(0deg) scale(.72); }
+    .bean { position: absolute; z-index: 3; width: 33px; height: 43px; border-radius: 50%; background: linear-gradient(110deg, #b87957, #6d3e28); box-shadow: 0 8px 12px rgba(0,0,0,.17); }
+    .bean::before { content: ""; position: absolute; top: 4px; bottom: 4px; left: 15px; width: 2px; border-radius: 50%; background: rgba(45,26,19,.72); transform: rotate(8deg); }
+    .bean-1 { top: 91px; left: 89px; transform: rotate(26deg); }
+    .bean-2 { top: 158px; right: 77px; transform: rotate(-17deg) scale(.83); }
+    .bean-3 { top: 231px; left: 56px; transform: rotate(19deg) scale(.68); }
+    .origin-tag { position: absolute; z-index: 3; top: 52%; right: -2%; width: 132px; padding-left: 12px; border-left: 1px solid #c3d99a; color: rgba(255,255,255,.76); font-size: 10px; line-height: 1.7; letter-spacing: .08em; }
+    .origin-tag b { display: block; color: #dce7b5; font: 500 16px/1.2 "DM Mono", monospace; }
+    .scroll-hint { position: absolute; bottom: 22px; left: max(26px, calc((100% - 1140px) / 2)); z-index: 2; display: flex; gap: 11px; align-items: center; color: rgba(255,255,255,.52); font: 500 10px/1 "DM Mono", monospace; letter-spacing: .13em; }
+    .scroll-hint::before { content: ""; width: 36px; height: 1px; background: currentColor; }
+
+    /* Story */
+    .story { padding: 118px 0; background: var(--paper); }
+    .story-grid { display: grid; grid-template-columns: .92fr 1.08fr; gap: clamp(46px, 9vw, 120px); align-items: center; }
+    .origin-window { position: relative; min-height: 395px; overflow: hidden; background: #e0e5d4; }
+    .origin-window::before { content: ""; position: absolute; inset: 27px; border: 1px solid rgba(23,56,43,.25); }
+    .origin-sun { position: absolute; top: 64px; right: 63px; width: 86px; height: 86px; border-radius: 50%; background: #d8c485; }
+    .origin-hill-one, .origin-hill-two { position: absolute; right: -12%; bottom: -2%; left: -13%; clip-path: polygon(0 72%, 23% 40%, 42% 62%, 66% 13%, 82% 49%, 100% 24%, 100% 100%, 0 100%); }
+    .origin-hill-one { height: 78%; background: #799267; }
+    .origin-hill-two { height: 58%; background: #315b42; transform: scaleX(-1); }
+    .origin-label { position: absolute; z-index: 2; right: 28px; bottom: 27px; color: #fff; font: 500 10px/1.7 "DM Mono", monospace; letter-spacing: .1em; text-align: right; }
+    .origin-label b { display: block; color: #dce7b5; font-size: 15px; }
+    .story-note { position: absolute; z-index: 3; bottom: 0; left: 0; width: 217px; padding: 20px 22px; color: #f9f8f1; background: var(--forest); box-shadow: var(--shadow); }
+    .story-note b { display: block; margin-bottom: 8px; color: #cfddaa; font: 500 10px/1 "DM Mono", monospace; letter-spacing: .12em; }
+    .story-note p { margin: 0; font-size: 12px; line-height: 1.8; }
+    .story-link { display: inline-flex; gap: 10px; margin-top: 29px; padding-bottom: 4px; border-bottom: 1px solid var(--moss); color: var(--moss); font-size: 14px; font-weight: 700; }
+
+    /* Selection */
+    .selection { padding: 112px 0 120px; background: var(--cream); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 42px; }
+    .section-head .copy { max-width: 34ch; margin: 0; font-size: 14px; }
+    .coffee-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .coffee-card { display: flex; flex-direction: column; min-height: 455px; background: var(--paper); box-shadow: 0 1px 0 var(--line); transition: transform .25s ease, box-shadow .25s ease; }
+    .coffee-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .bag-visual { position: relative; height: 214px; overflow: hidden; background: #dfe6d7; }
+    .coffee-card:nth-child(2) .bag-visual { background: #d7dfca; }
+    .coffee-card:nth-child(3) .bag-visual { background: #e7ddc9; }
+    .bag { position: absolute; right: 50%; bottom: -10px; width: 156px; height: 199px; padding: 28px 16px; color: #fff; background: var(--forest); box-shadow: 10px 14px 25px rgba(20,50,36,.17); transform: translateX(50%); }
+    .coffee-card:nth-child(2) .bag { background: #315a3d; }
+    .coffee-card:nth-child(3) .bag { background: #806248; }
+    .bag::before { content: ""; position: absolute; top: 13px; right: 12px; left: 12px; height: 1px; background: rgba(255,255,255,.35); box-shadow: 0 5px 0 rgba(255,255,255,.18); }
+    .bag .mini-leaf { display: block; width: 24px; height: 14px; margin-bottom: 19px; border: 1px solid #dce7b5; border-radius: 100% 0; transform: rotate(-28deg); }
+    .bag .bag-name { position: relative; z-index: 1; font: 700 18px/1.3 "Noto Serif TC", serif; letter-spacing: .07em; }
+    .bag .bag-origin { display: block; margin-top: 7px; color: rgba(255,255,255,.65); font: 400 7px/1.4 "DM Mono", monospace; letter-spacing: .1em; }
+    .card-body { display: flex; flex: 1; flex-direction: column; padding: 23px 24px 22px; }
+    .card-index { color: var(--moss); font: 500 10px/1 "DM Mono", monospace; letter-spacing: .09em; }
+    .card-body h3 { margin: 13px 0 5px; font: 700 23px/1.4 "Noto Serif TC", serif; letter-spacing: .06em; }
+    .card-origin { margin: 0; color: var(--muted); font-size: 12px; }
+    .flavour { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 auto; }
+    .flavour span { padding: 3px 8px; border: 1px solid var(--line); color: var(--moss); font-size: 11px; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 20px; padding-top: 15px; border-top: 1px solid var(--line); }
+    .price { font: 500 13px/1 "DM Mono", monospace; }
+    .save-button { padding: 4px 0; border: 0; color: var(--moss); background: transparent; font-size: 12px; font-weight: 700; }
+    .save-button:hover { color: var(--clay); }
+
+    /* Brew */
+    .brew { position: relative; overflow: hidden; padding: 118px 0; color: #f8f8ef; background: var(--forest); }
+    .brew::before { content: ""; position: absolute; top: -160px; left: -120px; width: 460px; height: 460px; border: 1px solid rgba(211,227,166,.14); border-radius: 50%; box-shadow: 0 0 0 75px rgba(211,227,166,.035); }
+    .brew-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.02fr .98fr; gap: clamp(45px, 8vw, 100px); align-items: center; }
+    .brew .eyebrow { color: #c6d99c; }
+    .brew .title strong { color: #dce7b5; }
+    .brew .copy { color: rgba(255,255,255,.69); }
+    .brew-drawing { position: relative; min-height: 409px; border: 1px solid rgba(220,231,181,.38); background: rgba(255,255,255,.035); }
+    .brew-drawing::before { content: ""; position: absolute; top: 28px; left: 27px; width: 51px; height: 1px; background: #c6d99c; box-shadow: 0 9px 0 #c6d99c, 0 18px 0 #c6d99c; }
+    .water-lines { position: absolute; top: 63px; left: 50%; width: 186px; height: 155px; border: 2px solid rgba(210,228,174,.75); border-bottom: 0; border-radius: 50% 50% 0 0; transform: translateX(-50%); }
+    .water-lines::before, .water-lines::after { content: ""; position: absolute; top: 13px; right: 18px; bottom: 0; left: 18px; border: 1px solid rgba(210,228,174,.48); border-bottom: 0; border-radius: 50% 50% 0 0; }
+    .water-lines::after { top: 26px; right: 36px; left: 36px; }
+    .dripper { position: absolute; bottom: 81px; left: 50%; width: 184px; height: 136px; border: 3px solid #e6edd0; background: linear-gradient(115deg, rgba(173,203,129,.34), rgba(30,74,48,.14)); clip-path: polygon(0 0,100% 0,72% 100%,28% 100%); transform: translateX(-50%); }
+    .dripper::before { content: ""; position: absolute; top: 14px; right: 19px; bottom: 0; left: 19px; border-left: 1px solid rgba(230,237,208,.5); border-right: 1px solid rgba(230,237,208,.5); transform: skewX(-12deg); }
+    .server { position: absolute; bottom: 28px; left: 50%; width: 122px; height: 65px; border: 3px solid #e6edd0; border-radius: 6px 6px 34px 34px; background: linear-gradient(90deg, rgba(160,192,130,.34), rgba(9,41,27,.24)); transform: translateX(-50%); }
+    .server::after { content: ""; position: absolute; right: 12px; bottom: 9px; left: 12px; height: 25px; border-radius: 2px 2px 18px 18px; background: rgba(100,59,35,.8); }
+    .brew-caption { position: absolute; right: 24px; bottom: 21px; color: #c6d99c; font: 400 9px/1.8 "DM Mono", monospace; letter-spacing: .08em; text-align: right; }
+    .method-list { display: grid; gap: 0; margin: 28px 0 0; padding: 0; list-style: none; }
+    .method-list li { display: grid; grid-template-columns: 45px 1fr; gap: 15px; padding: 17px 0; border-top: 1px solid rgba(220,231,181,.25); }
+    .method-list li:last-child { border-bottom: 1px solid rgba(220,231,181,.25); }
+    .method-no { color: #c6d99c; font: 500 14px/1.7 "DM Mono", monospace; }
+    .method-text b { display: block; font-size: 15px; }
+    .method-text span { color: rgba(255,255,255,.64); font-size: 13px; }
+
+    /* Visit */
+    .visit { padding: 112px 0; background: var(--paper); }
+    .visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(42px, 8vw, 105px); align-items: center; }
+    .store-card { position: relative; min-height: 350px; overflow: hidden; color: #fff; background: var(--moss); box-shadow: var(--shadow); }
+    .store-card::before { content: ""; position: absolute; inset: 0; opacity: .68; background: linear-gradient(138deg, transparent 28%, rgba(11,45,30,.46) 28.5% 100%), repeating-linear-gradient(122deg, transparent 0 61px, rgba(224,235,195,.18) 62px 63px, transparent 64px 100px); }
+    .store-card::after { content: ""; position: absolute; top: -68px; right: -61px; width: 265px; height: 265px; border: 1px solid rgba(227,237,203,.44); border-radius: 50%; }
+    .store-inner { position: relative; z-index: 1; display: flex; min-height: 350px; flex-direction: column; padding: 32px; }
+    .store-kicker { margin: 0; color: #dce7b5; font: 400 10px/1 "DM Mono", monospace; letter-spacing: .13em; }
+    .store-inner h3 { margin: auto 0 7px; font: 700 31px/1.35 "Noto Serif TC", serif; letter-spacing: .08em; }
+    .store-inner p:not(.store-kicker) { max-width: 23ch; margin: 0; color: rgba(255,255,255,.76); font-size: 13px; }
+    .store-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; color: #fff; font-size: 13px; font-weight: 700; }
+    .details { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; margin: 30px 0 0; }
+    .detail { padding: 16px 0; border-top: 1px solid var(--line); }
+    .detail:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
+    .detail:nth-child(odd) { padding-right: 19px; }
+    .detail:nth-child(even) { padding-left: 19px; border-left: 1px solid var(--line); }
+    .detail b { display: block; margin-bottom: 6px; color: var(--moss); font: 500 10px/1 "DM Mono", monospace; letter-spacing: .09em; }
+    .detail span { font-size: 13px; }
+
+    /* Footer and small UI */
+    footer { color: rgba(255,255,255,.68); background: var(--deep-forest); }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 42px; padding: 57px 0 37px; }
+    .footer-brand { color: #fff; }
+    .footer-brand p { max-width: 30ch; margin: 16px 0 0; font-size: 13px; }
+    .footer-heading { margin: 0 0 14px; color: #c6d99c; font: 500 10px/1 "DM Mono", monospace; letter-spacing: .13em; }
+    .footer-list { margin: 0; padding: 0; list-style: none; font-size: 13px; }
+    .footer-list li + li { margin-top: 8px; }
+    .footer-list a:hover { color: #fff; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding: 18px 0; border-top: 1px solid rgba(255,255,255,.13); color: rgba(255,255,255,.42); font: 400 10px/1.5 "DM Mono", monospace; letter-spacing: .06em; }
+    .toast { position: fixed; right: 22px; bottom: 22px; z-index: 30; max-width: min(340px, calc(100% - 44px)); padding: 13px 17px; border-left: 3px solid var(--oat); color: #fff; background: var(--deep-forest); box-shadow: var(--shadow); font-size: 13px; opacity: 0; pointer-events: none; transform: translateY(12px); transition: opacity .23s ease, transform .23s ease; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 840px) {
+      .nav { min-height: 68px; }
+      .menu-button { display: block; }
+      .nav-links { position: absolute; top: 68px; right: 0; left: 0; display: grid; gap: 0; max-height: 0; overflow: hidden; background: #112f23; transition: max-height .28s ease; }
+      .nav-links.open { max-height: 300px; border-top: 1px solid rgba(255,255,255,.14); }
+      .nav-links a { padding: 13px 26px; border-bottom: 1px solid rgba(255,255,255,.1); }
+      .nav-links .nav-book { margin: 10px 26px; text-align: center; }
+      .hero, .hero-grid { min-height: 725px; }
+      .hero-grid { grid-template-columns: 1fr; padding-top: 110px; }
+      .hero-visual { height: 280px; margin-top: -40px; }
+      .sun-disc { top: 8px; right: 14%; width: 118px; height: 118px; }
+      .hill { width: 86%; height: 97%; }
+      .coffee-plant { right: 16%; bottom: -24px; transform: scale(.75) rotate(-4deg); transform-origin: bottom right; }
+      .origin-tag { top: 45%; right: 1%; }
+      .story-grid, .brew-grid, .visit-grid { grid-template-columns: 1fr; }
+      .origin-window { max-width: 560px; width: 100%; }
+      .coffee-grid { grid-template-columns: repeat(2, 1fr); }
+      .coffee-card:last-child { grid-column: span 2; }
+      .footer-grid { grid-template-columns: 1.4fr 1fr; }
+      .footer-brand { grid-column: span 2; }
+    }
+
+    @media (max-width: 570px) {
+      .container { width: min(100% - 34px, 1140px); }
+      .hero, .hero-grid { min-height: 680px; }
+      .hero-grid { padding-top: 99px; padding-bottom: 44px; }
+      .hero h1 { font-size: 40px; }
+      .hero-lede { margin: 19px 0 23px; font-size: 14px; }
+      .hero-visual { height: 238px; }
+      .origin-tag { display: none; }
+      .scroll-hint { bottom: 12px; left: 17px; }
+      .story, .selection, .brew, .visit { padding: 76px 0; }
+      .origin-window { min-height: 335px; }
+      .story-note { width: 190px; padding: 16px; }
+      .section-head { display: block; }
+      .section-head .copy { margin-top: 15px; }
+      .coffee-grid { grid-template-columns: 1fr; }
+      .coffee-card:last-child { grid-column: auto; }
+      .brew-drawing { min-height: 325px; }
+      .water-lines { transform: translateX(-50%) scale(.82); transform-origin: top; }
+      .dripper { transform: translateX(-50%) scale(.8); transform-origin: bottom; }
+      .server { transform: translateX(-50%) scale(.8); transform-origin: bottom; }
+      .details { grid-template-columns: 1fr; }
+      .detail, .detail:nth-last-child(-n+2) { border-bottom: 0; }
+      .detail:first-child { border-top: 1px solid var(--line); }
+      .detail:last-child { border-bottom: 1px solid var(--line); }
+      .detail:nth-child(even) { padding-left: 0; border-left: 0; }
+      .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+      .footer-brand { grid-column: auto; }
+      .footer-bottom { display: block; }
+      .footer-bottom span + span { display: block; margin-top: 6px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="top">
+    <nav class="nav container" aria-label="主要導覽">
+      <a class="brand" href="#top" aria-label="回到綠天咖啡首頁"><span class="brand-symbol" aria-hidden="true"></span><span>綠天咖啡<small>GREEN SKY COFFEE</small></span></a>
+      <button class="menu-button" type="button" aria-label="開啟導覽選單" aria-expanded="false" aria-controls="navLinks">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#story">咖啡介紹</a>
+        <a href="#selection">產地選豆</a>
+        <a href="#brew">沖煮特色</a>
+        <a class="nav-book" href="#visit">門市資訊</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-grid container">
+        <div class="reveal">
+          <p class="eyebrow">SMALL BATCH · SPECIALTY COFFEE</p>
+          <h1 id="heroTitle">從產地，<br>到杯中的<br><em>一片綠。</em></h1>
+          <p class="hero-lede">綠天咖啡以小批次烘焙與專注手沖，讓每一支咖啡豆的土壤、海拔與陽光，都在你的杯中留下清晰的痕跡。</p>
+          <div class="hero-actions"><a class="button button-main" href="#selection">品味本季選豆 <span class="icon-arrow">→</span></a><a class="button button-light" href="#story">認識綠天</a></div>
+          <p class="hero-signature">GROWN WITH CARE · BREWED WITH PATIENCE</p>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="sun-disc"></div><div class="hill"></div>
+          <div class="coffee-plant"><span class="stem"></span><span class="leaf leaf-a"></span><span class="leaf leaf-b"></span><span class="leaf leaf-c"></span><span class="leaf leaf-d"></span><span class="leaf leaf-e"></span><span class="bean bean-1"></span><span class="bean bean-2"></span><span class="bean bean-3"></span></div>
+          <p class="origin-tag"><b>1,850m</b>高海拔慢熟<br>保留明亮酸質</p>
+        </div>
+      </div>
+      <p class="scroll-hint">SCROLL TO EXPLORE</p>
+    </section>
+
+    <section class="story" id="story" aria-labelledby="storyTitle">
+      <div class="story-grid container">
+        <div class="origin-window reveal" aria-hidden="true"><div class="origin-sun"></div><div class="origin-hill-one"></div><div class="origin-hill-two"></div><p class="origin-label"><b>HUILA, COLOMBIA</b>ALTITUDE 1,850M</p><div class="story-note"><b>OUR STARTING POINT</b><p>每一杯的起點，都在一片認真生長的土地。</p></div></div>
+        <div class="reveal">
+          <p class="eyebrow">FROM SOIL TO CUP</p>
+          <h2 class="title" id="storyTitle">我們想讓你喝見，<br>咖啡豆的<strong>來處</strong>。</h2>
+          <p class="copy">好的咖啡從不只是一串風味名詞。它來自高地的晨霧、果實成熟的速度，以及農人日復一日的照看。我們走近每個產區，只為把那些真實而細緻的不同，好好留在一杯咖啡裡。</p>
+          <p class="copy">從選豆、烘焙到注水，少一點干擾，多一點尊重，讓風土自己說話。</p>
+          <a class="story-link" href="#brew">看見我們的沖煮方式 <span>→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="selection" id="selection" aria-labelledby="selectionTitle">
+      <div class="container">
+        <div class="section-head reveal"><div><p class="eyebrow">SEASONAL COFFEE</p><h2 class="title" id="selectionTitle">此刻，來自三座<strong>山的禮物</strong>。</h2></div><p class="copy">為喜歡探索的人挑選三款單一產區；清爽、甜潤與醇厚，都有恰好的位置。</p></div>
+        <div class="coffee-grid">
+          <article class="coffee-card reveal">
+            <div class="bag-visual" aria-hidden="true"><div class="bag"><span class="mini-leaf"></span><b class="bag-name">耶加雪菲</b><span class="bag-origin">ETHIOPIA / WASHED</span></div></div>
+            <div class="card-body"><span class="card-index">01 / BRIGHT &amp; FLORAL</span><h3>衣索比亞・耶加雪菲</h3><p class="card-origin">G1 水洗處理｜1,950m</p><div class="flavour"><span>茉莉</span><span>柑橘</span><span>蜂蜜</span></div><div class="card-footer"><span class="price">NT$ 520 / 200g</span><button class="save-button" type="button" data-coffee="衣索比亞・耶加雪菲">收藏風味 ＋</button></div></div>
+          </article>
+          <article class="coffee-card reveal">
+            <div class="bag-visual" aria-hidden="true"><div class="bag"><span class="mini-leaf"></span><b class="bag-name">涅里</b><span class="bag-origin">KENYA / WASHED</span></div></div>
+            <div class="card-body"><span class="card-index">02 / JUICY &amp; VIVID</span><h3>肯亞・涅里</h3><p class="card-origin">AA 水洗處理｜1,720m</p><div class="flavour"><span>黑醋栗</span><span>洛神</span><span>紅糖</span></div><div class="card-footer"><span class="price">NT$ 580 / 200g</span><button class="save-button" type="button" data-coffee="肯亞・涅里">收藏風味 ＋</button></div></div>
+          </article>
+          <article class="coffee-card reveal">
+            <div class="bag-visual" aria-hidden="true"><div class="bag"><span class="mini-leaf"></span><b class="bag-name">慧蘭</b><span class="bag-origin">COLOMBIA / HONEY</span></div></div>
+            <div class="card-body"><span class="card-index">03 / ROUND &amp; SWEET</span><h3>哥倫比亞・慧蘭</h3><p class="card-origin">蜜處理｜1,850m</p><div class="flavour"><span>黃桃</span><span>焦糖</span><span>可可</span></div><div class="card-footer"><span class="price">NT$ 480 / 200g</span><button class="save-button" type="button" data-coffee="哥倫比亞・慧蘭">收藏風味 ＋</button></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="brew" id="brew" aria-labelledby="brewTitle">
+      <div class="brew-grid container">
+        <div class="brew-drawing reveal" aria-hidden="true"><div class="water-lines"></div><div class="dripper"></div><div class="server"></div><p class="brew-caption">V60 / 15G : 240ML<br>92°C · 2'45''</p></div>
+        <div class="reveal">
+          <p class="eyebrow">OUR BREWING RITUAL</p>
+          <h2 class="title" id="brewTitle">讓水走慢一些，<br>讓風味<strong>更完整</strong>。</h2>
+          <p class="copy">手沖不是一套僵硬的公式，而是一次與咖啡相處的過程。我們用穩定的節奏，萃取出飽滿甜感與乾淨尾韻。</p>
+          <ol class="method-list">
+            <li><span class="method-no">01</span><span class="method-text"><b>中細研磨，保留呼吸空間</b><span>15g 咖啡豆，讓香氣與水流找到平衡。</span></span></li>
+            <li><span class="method-no">02</span><span class="method-text"><b>92°C 悶蒸，等待第一個訊號</b><span>30 秒浸潤，讓甜感從咖啡粉裡緩緩展開。</span></span></li>
+            <li><span class="method-no">03</span><span class="method-text"><b>穩定注水，完成一杯清澈</b><span>240ml 水量，在 2 分 45 秒留下完整產地輪廓。</span></span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="visit" id="visit" aria-labelledby="visitTitle">
+      <div class="visit-grid container">
+        <div class="reveal"><p class="eyebrow">VISIT OUR BREW BAR</p><h2 class="title" id="visitTitle">到門市坐坐，<br>喝一杯剛剛好的<strong>綠意</strong>。</h2><p class="copy">讓咖啡師依照你的喜好，帶你從香氣開始認識一支豆子。這裡有手沖、有對話，也有一段可以慢下來的午後。</p><div class="details"><div class="detail"><b>ADDRESS</b><span>台北市大安區青田街 28 號</span></div><div class="detail"><b>OPENING HOURS</b><span>每日 10:00 — 19:00</span></div><div class="detail"><b>BREW BAR</b><span>手沖咖啡・選豆諮詢</span></div><div class="detail"><b>CONTACT</b><span>02 2368 0828</span></div></div></div>
+        <aside class="store-card reveal" aria-label="綠天咖啡門市資訊卡"><div class="store-inner"><p class="store-kicker">GREEN SKY BREW BAR</p><h3>在城市裡，<br>留一小片山林。</h3><p>沿著青田街的樹影走進來，讓我們為你沖一杯此刻最適合的咖啡。</p><a class="store-link" href="mailto:hello@greensky.coffee">預約選豆與手沖體驗 <span class="icon-arrow">→</span></a></div></aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid container">
+      <div class="footer-brand"><a class="brand" href="#top"><span class="brand-symbol" aria-hidden="true"></span><span>綠天咖啡<small>GREEN SKY COFFEE</small></span></a><p>從一顆用心生長的咖啡果實，到你手上安靜的一杯。</p></div>
+      <div><p class="footer-heading">EXPLORE</p><ul class="footer-list"><li><a href="#story">咖啡介紹</a></li><li><a href="#selection">產地選豆</a></li><li><a href="#brew">沖煮特色</a></li></ul></div>
+      <div><p class="footer-heading">CONTACT</p><ul class="footer-list"><li><a href="mailto:hello@greensky.coffee">hello@greensky.coffee</a></li><li>台北市大安區青田街 28 號</li><li>每日 10:00 — 19:00</li></ul></div>
+    </div>
+    <div class="footer-bottom container"><span>© 2026 GREEN SKY COFFEE. ALL RIGHTS RESERVED.</span><span>GROWN SLOW · BREWED CLEAR</span></div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    const menuButton = document.querySelector('.menu-button');
+    const navLinks = document.getElementById('navLinks');
+    menuButton.addEventListener('click', () => {
+      const opened = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(opened));
+      menuButton.setAttribute('aria-label', opened ? '關閉導覽選單' : '開啟導覽選單');
+      menuButton.textContent = opened ? '×' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', '開啟導覽選單');
+      menuButton.textContent = '☰';
+    }));
+
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    function showToast(message) {
+      window.clearTimeout(toastTimer);
+      toast.textContent = message;
+      toast.classList.add('show');
+      toastTimer = window.setTimeout(() => toast.classList.remove('show'), 2600);
+    }
+    document.querySelectorAll('[data-coffee]').forEach(button => button.addEventListener('click', () => {
+      showToast(`已收藏「${button.dataset.coffee}」，下次來門市時可以問問它。`);
+    }));
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revealItems = document.querySelectorAll('.reveal');
+    if (reducedMotion || !('IntersectionObserver' in window)) {
+      revealItems.forEach(element => element.classList.add('in'));
+    } else {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .12 });
+      revealItems.forEach(element => observer.observe(element));
+    }
+  </script>
+</body>
+</html>

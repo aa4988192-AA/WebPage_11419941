@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>湛藍精品咖啡 | 頂級手沖咖啡</title>
+    <style>
+        :root {
+            --primary-blue: #0b1d3a;
+            --secondary-blue: #162c54;
+            --accent-gold: #d4af37;
+            --text-light: #f8f9fa;
+            --text-dark: #a0abc0;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, 'Microsoft JhengHei', sans-serif;
+            background-color: var(--primary-blue);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background-color: rgba(11, 29, 58, 0.98);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-decoration: none;
+            letter-spacing: 3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        nav {
+            display: flex;
+            gap: 40px;
+        }
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+        .hero {
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(11,29,58,0.9) 0%, rgba(5,13,26,0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            background-blend-mode: overlay;
+            padding: 0 20px;
+        }
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 6px;
+            color: #ffffff;
+            font-weight: 300;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 650px;
+            color: #d1d8e0;
+            margin-bottom: 50px;
+            letter-spacing: 1.5px;
+        }
+        .btn {
+            padding: 16px 45px;
+            background-color: var(--accent-gold);
+            color: #000;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+        }
+        .btn:hover {
+            background-color: #fce28b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .section {
+            padding: 100px 10%;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 4px;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-dark);
+            margin-bottom: 70px;
+            font-size: 1.1rem;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 50px;
+        }
+        .feature-card {
+            background-color: var(--secondary-blue);
+            padding: 50px 40px;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background-color: var(--accent-gold);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: rgba(212, 175, 55, 0.3);
+        }
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+        .feature-card p {
+            color: var(--text-dark);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        .shop-section {
+            background-color: #071326;
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            padding: 40px;
+            background-color: #030812;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">湛藍精品咖啡</a>
+        <nav>
+            <a href="#about">品牌哲學</a>
+            <a href="#beans">高階豆單</a>
+            <a href="#brew">手沖藝術</a>
+            <a href="#shop">選購咖啡</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>演繹手沖的極致純粹</h1>
+        <p>專為手沖咖啡愛好者打造的精品殿堂。<br>嚴選世界級高階莊園咖啡豆，在深藍的靜謐中，品味每一滴萃取的醇厚與芬芳。</p>
+        <a href="#shop" class="btn">探索頂級咖啡豆</a>
+    </section>
+
+    <section id="about" class="section">
+        <h2 class="section-title">為什麼選擇湛藍？</h2>
+        <p class="section-subtitle">我們專注於手沖咖啡的每一個細節，只為呈現最完美的風味。</p>
+        
+        <div class="features">
+            <div class="feature-card">
+                <h3>高階咖啡生豆</h3>
+                <p>由國際認證尋豆師親赴產區，嚴選巴拿馬藝伎、衣索比亞等頂尖莊園微批次生豆，確保風味的稀有與獨特，滿足挑剔的味蕾。</p>
+            </div>
+            <div class="feature-card">
+                <h3>專屬手沖烘焙</h3>
+                <p>揚棄流水線式的量產，採用小鍋精緻烘焙。針對每款豆子的含水率與密度，量身打造專屬烘焙曲線，完美釋放花果香氣與層次。</p>
+            </div>
+            <div class="feature-card">
+                <h3>沉穩品牌美學</h3>
+                <p>以品牌標誌性的「湛藍色」為靈感，我們相信品飲高階咖啡是一場靜心儀式。從包裝到網站，為您打造優雅、專業的視覺與味覺雙重享受。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="shop" class="section shop-section">
+        <h2 class="section-title">開啟您的手沖旅程</h2>
+        <p class="section-subtitle">最新上架：哥倫比亞 聖荷西莊園 橡木桶水洗 / 巴拿馬 翡翠莊園 頂級紅標藝伎</p>
+        <a href="#" class="btn" style="background-color: transparent; border: 2px solid var(--accent-gold); color: var(--accent-gold);">前往線上商城</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 湛藍精品咖啡 Azure Specialty Coffee. All rights reserved. | 專注高階咖啡豆 · 致力手沖推廣</p>
+    </footer>
+</body>
+</html>

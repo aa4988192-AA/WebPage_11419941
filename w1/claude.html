@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>藍時 Blue Hour｜手沖咖啡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0B1220;
+    --deep: #16305C;
+    --blue: #2A5CAD;
+    --blue-bright: #3E74CC;
+    --paper: #EEF3FA;
+    --mist: #D3DEEC;
+    --white: #FFFFFF;
+    --roast: #B9843E;
+
+    --display: 'Noto Serif TC', serif;
+    --body: 'Noto Sans TC', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  :focus-visible{ outline:2px solid var(--blue); outline-offset:3px; border-radius:4px; }
+
+  .wrap{ max-width:1160px; margin:0 auto; padding:0 32px; }
+
+  /* NAV */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background: rgba(238,243,250,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--mist);
+  }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:18px 0; }
+  .logo{ font-family:var(--display); font-weight:700; font-size:1.28rem; letter-spacing:0.02em; display:flex; align-items:center; gap:10px; }
+  .logo .mark{ width:10px; height:14px; background:var(--blue); border-radius:2px 2px 6px 6px; }
+  .nav-links{ display:flex; gap:34px; font-size:0.95rem; font-weight:500; color:var(--deep); }
+  .nav-links a{ opacity:0.72; transition:opacity .15s ease; }
+  .nav-links a:hover{ opacity:1; }
+  .nav-cta{
+    background:var(--deep); color:var(--white);
+    padding:10px 22px; border-radius:999px; font-size:0.9rem; font-weight:500;
+    border:none; transition:background .15s ease, transform .15s ease;
+  }
+  .nav-cta:hover{ background:var(--blue); transform:translateY(-1px); }
+
+  /* HERO */
+  .hero{ padding:80px 0 92px; }
+  .hero-grid{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center; }
+  .eyebrow{
+    font-family:var(--mono); font-size:0.76rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--blue); display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow::before{ content:""; width:22px; height:1px; background:var(--blue); }
+  .hero h1{
+    font-family:var(--display); font-weight:900; font-size:clamp(2.1rem,4.2vw,3.3rem);
+    line-height:1.35; color:var(--deep); margin-bottom:22px;
+  }
+  .hero h1 em{ font-style:normal; color:var(--blue); }
+  .hero p.lede{ font-size:1.06rem; color:#3F4A63; max-width:44ch; margin-bottom:32px; }
+  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:38px; }
+  .btn-primary, .btn-ghost{
+    padding:14px 28px; border-radius:10px; font-size:0.97rem; font-weight:500;
+    border:1px solid transparent; transition:all .15s ease; display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{ background:var(--deep); color:var(--white); }
+  .btn-primary:hover{ background:var(--blue); transform:translateY(-1px); }
+  .btn-ghost{ background:transparent; border-color:var(--deep); color:var(--deep); }
+  .btn-ghost:hover{ background:var(--deep); color:var(--white); }
+
+  .hero-stats{ display:flex; gap:32px; font-family:var(--mono); }
+  .hero-stats div strong{ display:block; font-size:1.4rem; font-family:var(--display); color:var(--deep); }
+  .hero-stats div span{ font-size:0.74rem; color:#6E7896; letter-spacing:0.04em; }
+
+  /* SIGNATURE: brew timer */
+  .brewer{
+    position:relative; background:var(--deep); border-radius:20px;
+    aspect-ratio:1/1; overflow:hidden;
+    box-shadow:0 24px 60px -20px rgba(22,48,92,0.5);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding: 26px;
+  }
+  .brewer-hud{
+    position:absolute; top:18px; left:18px; right:18px;
+    display:flex; justify-content:space-between;
+    font-family:var(--mono); font-size:0.72rem; color:#9FC1EE; letter-spacing:0.05em;
+  }
+  .brewer-stage{
+    font-family:var(--display); color:var(--white); font-size:1.15rem;
+    margin-top: 6px; margin-bottom: 4px; text-align:center; min-height: 1.6em;
+  }
+  .brewer-time{
+    font-family:var(--mono); font-size:2.6rem; color:var(--white); letter-spacing:0.02em; margin-bottom:18px;
+  }
+  .dripper-svg{ width:150px; margin-bottom: 18px; }
+  .brewer-btn{
+    background:var(--blue); color:var(--white); border:none;
+    padding:12px 26px; border-radius:999px; font-size:0.92rem; font-weight:500;
+    transition:background .15s ease;
+  }
+  .brewer-btn:hover{ background:var(--blue-bright); }
+  .brewer-btn:disabled{ opacity:0.55; cursor:default; }
+
+  /* STORY */
+  .story{ padding:78px 0; border-top:1px solid var(--mist); }
+  .story-grid{ display:grid; grid-template-columns:0.8fr 1.2fr; gap:56px; }
+  .section-label{
+    font-family:var(--mono); font-size:0.76rem; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--blue); margin-bottom:14px;
+  }
+  .story h2{ font-family:var(--display); font-weight:900; font-size:1.85rem; color:var(--deep); line-height:1.5; }
+  .story-body p{ font-size:1.01rem; color:#3F4A63; margin-bottom:18px; max-width:58ch; }
+  .story-body p:last-child{ margin-bottom:0; }
+  .story-body strong{ color:var(--deep); }
+
+  /* BEANS */
+  .beans{ padding:78px 0; background:var(--white); border-top:1px solid var(--mist); border-bottom:1px solid var(--mist); }
+  .beans-head{ max-width:640px; margin-bottom:46px; }
+  .beans-head h2{ font-family:var(--display); font-weight:900; font-size:1.85rem; color:var(--deep); margin-top:10px; }
+  .bean-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .b-card{
+    border:1px solid var(--mist); border-radius:16px; padding:28px 24px;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .b-card:hover{ border-color:var(--blue-bright); transform:translateY(-3px); }
+  .b-card .origin{ font-family:var(--mono); font-size:0.7rem; color:var(--blue); letter-spacing:0.06em; margin-bottom:14px; }
+  .b-card h3{ font-family:var(--display); font-weight:700; font-size:1.18rem; color:var(--deep); margin-bottom:12px; }
+  .roast-bar{ display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+  .roast-bar .label{ font-family:var(--mono); font-size:0.68rem; color:#6E7896; letter-spacing:0.04em; }
+  .roast-dots{ display:flex; gap:4px; }
+  .roast-dots span{ width:7px; height:7px; border-radius:50%; background:var(--mist); }
+  .roast-dots span.on{ background:var(--roast); }
+  .flavor-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px; }
+  .flavor-tags span{
+    font-size:0.76rem; padding:4px 10px; border-radius:999px;
+    background:var(--paper); color:var(--deep); border:1px solid var(--mist);
+  }
+  .b-card .ratio{ font-family:var(--mono); font-size:0.82rem; color:var(--deep); border-top:1px solid var(--mist); padding-top:14px; }
+  .b-card .ratio span{ color:#6E7896; }
+
+  /* GUIDE */
+  .guide{ padding:86px 0; }
+  .guide-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:50px; gap:24px; flex-wrap:wrap; }
+  .guide-head h2{ font-family:var(--display); font-weight:900; font-size:1.85rem; color:var(--deep); }
+  .guide-head p{ max-width:38ch; color:#5B637F; font-size:0.95rem; }
+  .steps{ display:grid; grid-template-columns:repeat(4,1fr); position:relative; }
+  .step{ position:relative; padding:0 22px 0 0; }
+  .step:not(:last-child)::after{
+    content:""; position:absolute; top:20px; right:-1px; width:1px; height:56px; background:var(--mist);
+  }
+  .step .num{ font-family:var(--mono); font-size:0.76rem; color:var(--blue); margin-bottom:16px; display:block; }
+  .step h3{ font-family:var(--display); font-weight:700; font-size:1.05rem; color:var(--deep); margin-bottom:10px; }
+  .step p{ font-size:0.88rem; color:#5B637F; }
+
+  /* CTA */
+  .cta{
+    background:var(--deep); color:var(--white); border-radius:24px; margin:0 32px 32px;
+    padding:70px 56px; position:relative; overflow:hidden;
+  }
+  .cta::before{
+    content:""; position:absolute; width:460px; height:460px;
+    background:radial-gradient(circle, rgba(62,116,204,0.4), transparent 70%);
+    top:-170px; right:-130px; border-radius:50%;
+  }
+  .cta-inner{ position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap; }
+  .cta h2{ font-family:var(--display); font-weight:900; font-size:clamp(1.5rem,2.8vw,2.1rem); max-width:16ch; line-height:1.5; }
+  .cta .btn-primary{ background:var(--white); color:var(--deep); white-space:nowrap; }
+  .cta .btn-primary:hover{ background:var(--paper); }
+
+  footer.site{ padding:38px 32px 60px; }
+  .footer-grid{
+    max-width:1160px; margin:0 auto; display:flex; justify-content:space-between; align-items:center;
+    flex-wrap:wrap; gap:16px; font-size:0.84rem; color:#6E7896; border-top:1px solid var(--mist); padding-top:26px;
+  }
+
+  @media (prefers-reduced-motion:reduce){ *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; } }
+
+  @media (max-width:880px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .brewer{ order:-1; max-width:400px; margin:0 auto 8px; }
+    .story-grid{ grid-template-columns:1fr; gap:28px; }
+    .bean-cards{ grid-template-columns:1fr; }
+    .steps{ grid-template-columns:1fr 1fr; row-gap:32px; }
+    .step:nth-child(2)::after{ display:none; }
+    .nav-links{ display:none; }
+    .cta{ margin:0 16px 16px; padding:46px 28px; }
+    .cta-inner{ flex-direction:column; align-items:flex-start; }
+  }
+  @media (max-width:520px){
+    .wrap{ padding:0 20px; }
+    .steps{ grid-template-columns:1fr; }
+    .step:not(:last-child)::after{ display:none; }
+    .hero-stats{ gap:20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="wrap nav">
+    <div class="logo"><span class="mark"></span>藍時 Blue Hour</div>
+    <ul class="nav-links">
+      <li><a href="#story">品牌故事</a></li>
+      <li><a href="#beans">咖啡豆</a></li>
+      <li><a href="#guide">沖煮指南</a></li>
+    </ul>
+    <button class="nav-cta">立即選購</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">單一產地・手沖咖啡</div>
+      <h1>每一次注水，<br>都是一次<em>校準</em></h1>
+      <p class="lede">藍時挑選當季高階單一產地咖啡豆，記錄每支豆子最適合的沖煮參數，讓你在家也能沖出穩定、有層次的一杯手沖。</p>
+      <div class="hero-actions">
+        <button class="btn-primary">選購咖啡豆</button>
+        <button class="btn-ghost">查看沖煮指南</button>
+      </div>
+      <div class="hero-stats">
+        <div><strong>3</strong><span>產地嚴選</span></div>
+        <div><strong>14天</strong><span>烘焙新鮮期</span></div>
+        <div><strong>1:15</strong><span>建議沖煮比例</span></div>
+      </div>
+    </div>
+
+    <div class="brewer">
+      <div class="brewer-hud">
+        <span>BREW / V60</span>
+        <span id="ratioTag">RATIO 1:15</span>
+      </div>
+      <svg class="dripper-svg" id="dripperSvg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 30 L120 30 L95 100 L65 100 Z" fill="none" stroke="#9FC1EE" stroke-width="2"/>
+        <rect id="waterLevel" x="65" y="98" width="30" height="0" fill="#3E74CC" opacity="0.85"/>
+        <path d="M40 30 L120 30 L95 100 L65 100 Z" fill="none" stroke="#9FC1EE" stroke-width="2"/>
+        <ellipse cx="80" cy="30" rx="40" ry="6" fill="none" stroke="#9FC1EE" stroke-width="2"/>
+        <path d="M72 100 L72 120 Q72 128 80 128 Q88 128 88 120 L88 100" fill="none" stroke="#9FC1EE" stroke-width="2"/>
+        <ellipse cx="80" cy="140" rx="26" ry="7" fill="none" stroke="#6E92C4" stroke-width="1.6"/>
+        <line id="pourLine" x1="80" y1="8" x2="80" y2="30" stroke="#3E74CC" stroke-width="3" opacity="0"/>
+      </svg>
+      <div class="brewer-stage" id="stageLabel">準備開始</div>
+      <div class="brewer-time" id="timeLabel">00:00</div>
+      <button class="brewer-btn" id="brewBtn">開始沖煮</button>
+    </div>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="wrap story-grid">
+    <div>
+      <div class="section-label">品牌故事</div>
+      <h2>在最安靜的<br>時刻沖一杯咖啡</h2>
+    </div>
+    <div class="story-body">
+      <p>藍時只選<strong>當季生豆</strong>與<strong>淺中焙的高階單品豆</strong>，每批豆子都標註產地、處理法與建議沖煮參數，讓喜歡手沖的你，能清楚知道自己在沖什麼。</p>
+      <p>我們相信手沖咖啡不只是一杯飲料，而是一段可以<strong>重複、可以校準</strong>的日常儀式——從研磨度到注水節奏，每個變因都值得被認真對待。</p>
+    </div>
+  </div>
+</section>
+
+<section class="beans" id="beans">
+  <div class="wrap">
+    <div class="beans-head">
+      <div class="section-label">本季精選</div>
+      <h2>三支產地，三種風味路徑</h2>
+    </div>
+    <div class="bean-cards">
+      <div class="b-card">
+        <div class="origin">衣索比亞・耶加雪菲</div>
+        <h3>花香水洗</h3>
+        <div class="roast-bar">
+          <span class="label">烘焙度</span>
+          <div class="roast-dots"><span class="on"></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="flavor-tags"><span>茉莉花</span><span>佛手柑</span><span>蜂蜜甜感</span></div>
+        <div class="ratio"><span>建議比例</span> 1:16 ／ 92°C</div>
+      </div>
+      <div class="b-card">
+        <div class="origin">哥倫比亞・薇拉產區</div>
+        <h3>紅果厚實</h3>
+        <div class="roast-bar">
+          <span class="label">烘焙度</span>
+          <div class="roast-dots"><span class="on"></span><span class="on"></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="flavor-tags"><span>紅櫻桃</span><span>焦糖</span><span>核桃</span></div>
+        <div class="ratio"><span>建議比例</span> 1:15 ／ 90°C</div>
+      </div>
+      <div class="b-card">
+        <div class="origin">巴拿馬・翡翠莊園</div>
+        <h3>經典藝伎</h3>
+        <div class="roast-bar">
+          <span class="label">烘焙度</span>
+          <div class="roast-dots"><span class="on"></span><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="flavor-tags"><span>茉莉</span><span>桃子</span><span>紅茶感</span></div>
+        <div class="ratio"><span>建議比例</span> 1:16 ／ 91°C</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="guide" id="guide">
+  <div class="wrap">
+    <div class="guide-head">
+      <h2>基礎沖煮流程</h2>
+      <p>以 V60 為例，四個階段沖出一杯穩定的手沖。</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="num">01</span>
+        <h3>悶蒸</h3>
+        <p>倒入 2 倍粉重的熱水，靜置 30 秒讓咖啡粉充分排氣。</p>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <h3>第一次注水</h3>
+        <p>繞圈緩慢注水至總水量的一半，維持穩定水流。</p>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <h3>第二次注水</h3>
+        <p>分次補足剩餘水量，讓水位穩定下降不斷流。</p>
+      </div>
+      <div class="step">
+        <span class="num">04</span>
+        <h3>完成萃取</h3>
+        <p>全部水量流完後取下濾杯，即可享用。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap" style="padding:0;">
+  <div class="cta">
+    <div class="cta-inner">
+      <h2>找到屬於你的那支豆子</h2>
+      <button class="btn-primary">選購咖啡豆</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site">
+  <div class="footer-grid">
+    <div>© 2026 藍時 Blue Hour．手沖咖啡</div>
+    <div>hello@bluehour.coffee</div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const btn = document.getElementById('brewBtn');
+    const stageLabel = document.getElementById('stageLabel');
+    const timeLabel = document.getElementById('timeLabel');
+    const waterLevel = document.getElementById('waterLevel');
+    const pourLine = document.getElementById('pourLine');
+
+    const stages = [
+      { name:'悶蒸中', dur:30, water:8 },
+      { name:'第一次注水', dur:60, water:38 },
+      { name:'第二次注水', dur:60, water:75 },
+      { name:'萃取完成', dur:0, water:75 }
+    ];
+
+    let running = false;
+    let stageIndex = 0;
+    let elapsed = 0;
+    let totalElapsed = 0;
+    let timer = null;
+
+    function fmt(s){
+      const m = Math.floor(s/60).toString().padStart(2,'0');
+      const sec = Math.floor(s%60).toString().padStart(2,'0');
+      return m+':'+sec;
+    }
+
+    function tick(){
+      totalElapsed += 1;
+      elapsed += 1;
+      timeLabel.textContent = fmt(totalElapsed);
+
+      const stage = stages[stageIndex];
+      const progress = stage.dur ? Math.min(elapsed/stage.dur, 1) : 1;
+      const prevWater = stageIndex === 0 ? 0 : stages[stageIndex-1].water;
+      const currentWater = prevWater + (stage.water - prevWater) * progress;
+      waterLevel.setAttribute('y', 98 - currentWater*0.55);
+      waterLevel.setAttribute('height', currentWater*0.55);
+
+      pourLine.style.opacity = (stageIndex === 1 || stageIndex === 2) ? '0.9' : '0';
+
+      if(stage.dur && elapsed >= stage.dur){
+        stageIndex += 1;
+        elapsed = 0;
+        if(stageIndex >= stages.length - 1){
+          stageLabel.textContent = stages[stages.length-1].name;
+          pourLine.style.opacity = '0';
+          clearInterval(timer);
+          running = false;
+          btn.disabled = false;
+          btn.textContent = '再沖一次';
+          return;
+        }
+        stageLabel.textContent = stages[stageIndex].name;
+      }
+    }
+
+    btn.addEventListener('click', () => {
+      if(running) return;
+      running = true;
+      stageIndex = 0;
+      elapsed = 0;
+      totalElapsed = 0;
+      waterLevel.setAttribute('y', 98);
+      waterLevel.setAttribute('height', 0);
+      stageLabel.textContent = stages[0].name;
+      timeLabel.textContent = '00:00';
+      btn.disabled = true;
+      btn.textContent = '沖煮中…';
+      timer = setInterval(tick, 1000);
+    });
+  })();
+</script>
+
+</body>
+</html>
