@@ -1,47 +1,3 @@
-# 咖哩部落客網站｜逆向詳細規格
-
-> 來源檔案：`WebPage_11419941/outline/index.html`  
-> 文件用途：將目前已完成的單頁網站轉化為可維護、可精確修改與可重新實作的完整網頁規格 Markdown 文件。  
-> 來源版本 SHA-256：`65AA5822FA4A2A90159BEC1FA2AC84A14565E7D73B3E4F75B199D40881D0AE13`
-
----
-
-## 1. 專案概述
-
-| 項目 | 規格細節 |
-|---|---|
-| **品牌名稱** | 咖哩部落客（CURRY BLOGGER） |
-| **網站類型** | 高級特色咖哩探索、風味指南與專賣店導流消費之一頁式品牌網站 |
-| **網頁語言** | 繁體中文，HTML `lang="zh-Hant"` |
-| **目標受眾** | 咖哩飯愛好者、香料風味研究者、追求極致口感與探訪特色專賣店的饕客 |
-| **核心目標** | 推廣多元流派咖哩文化、展示特色名店、以獨家到店招待禮遇吸引讀者親訪門市消費 |
-| **網頁形式** | 單一 `index.html`，CSS、SVG 向量插畫與 JavaScript 皆內嵌於同一檔案，零外部腳本依賴 |
-| **品牌精神語句** | 「尋訪極致辛香，品味每一勺靈魂咖哩。」 |
-
-### 1.1 品牌語氣與視覺風格
-
-- **語氣定位**：專業、講究、沉穩、帶有食記職人嚴謹感的敘事風格。聚焦於香料烘焙、低溫熟成工法、米飯契作與職人手藝，避免廉價速食感。
-- **視覺調性**：以「高級、特色咖哩」為核心風格，採用深邃黑金底色（Dark Luxury Base）凸顯金色咖哩與辛香料的誘人色澤，搭配高雅的明體標題與細緻金屬邊框，呈現如同米其林指南般的專業質感。
-
----
-
-## 2. 文件與技術邊界
-
-- **開發標準**：遵循 HTML5 語意化標籤（`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<dialog>`, `<footer>`）。
-- **樣式架構**：原生 CSS3，採用 CSS 自訂屬性（Custom Properties Token）、Flexbox、CSS Grid、現代視窗運算函式（`clamp()`, `min()`, `max()`）與毛玻璃濾鏡（`backdrop-filter`）。
-- **互動機制**：純原生 JavaScript（Vanilla JS），不載入 jQuery、Bootstrap 等第三方函式庫。
-- **字型資源**：僅引用 Google Fonts：
-  - 中文內文：`Noto Sans TC`（400, 500, 600, 700, 900）
-  - 中文展示標題：`Noto Serif TC`（600, 700, 900）
-  - 英數字與數據：`Outfit`（400, 600, 700, 800）
-- **圖像規範**：完全不依賴外部易失效的圖床。首頁主視覺咖哩碗、辛香鍋圖騰、門市徽章與功能圖標皆由純原生 SVG 向量程式碼與 CSS 漸層幾何繪製。
-- **功能模組**：頁面涵蓋 6 大主要 Section、6 家合作特色專賣店卡片、1 個 HTML5 原生彈窗（`<dialog>`）、1 個即時 Toast 通知與 1 個 3 秒尋味互動測驗。
-
----
-
-## 3. SEO 與基礎文件設定
-
-```html
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -49,296 +5,2530 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="咖哩部落客（Curry Blogger）— 專為咖哩飯愛好者打造的精選指南。探索日式熟成、正宗印度香料、南洋泰式與歐風特色咖哩專賣店，領取專屬到店禮遇與優惠券。">
   <title>咖哩部落客 CURRY BLOGGER｜全台特色咖哩專賣店與極致風味探索指南</title>
-```
-
-- 頁面色彩模式鎖定：`color-scheme: dark;`。
-- 捲動模式：預設 `html { scroll-behavior: smooth; }`。
-- 無障礙動態適配：設定 `@media (prefers-reduced-motion: reduce)`，當使用者開啟減少動態時自動關閉平滑捲動與進場動畫。
-
----
-
-## 4. 視覺系統與設計 Token
-
-### 4.1 品牌色彩系統（Brand Color: 黃色系）
-
-| Token 變數名稱 | 色碼 / 值 | 設計用途與心理意象 |
-|---|---|---|
-| `--primary-yellow` | `#EAB308` | **品牌核心黃色**（薑黃金色，用於主按鈕、標題高亮、圖示） |
-| `--primary-yellow-hover` | `#FACC15` | 亮麗暖黃，用於按鈕 Hover、焦點與微光效果 |
-| `--primary-yellow-deep` | `#CA8A04` | 濃郁深黃，用於邊框、次要高亮與徽章描邊 |
-| `--amber-gold` | `#F59E0B` | 琥珀香料金，用於主漸層與評分星號 |
-| `--curry-rich` | `#D97706` | 焦糖熟成咖哩色，象徵長時間熬煮的醬體厚度 |
-| `--curry-roasted` | `#B45309` | 焙炒香料深褐，用於輔助漸層與深度陰影 |
-| `--spice-cinnamon` | `#78350F` | 肉桂深咖，用於插圖與背景過渡 |
-| `--bg-dark-base` | `#110E0B` | 深沈碳黑底色（暗黑主背景） |
-| `--bg-dark-surface` | `#1B1612` | 質感卡片表面色（店鋪卡、特色卡） |
-| `--bg-dark-elevated` | `#26201A` | 浮雕卡片色、彈窗表頭與次要按鈕底色 |
-| `--text-white` | `#FCFAF6` | 亮白主標題與強對比文字 |
-| `--text-light` | `#EADFD0` | 暖淺褐內文段落，提供護眼高可讀性 |
-| `--text-muted` | `#A89B8C` | 次要輔助文字、標籤與門市地址 |
-| `--border-gold-subtle` | `rgba(234, 179, 8, 0.22)` | 卡片細緻金屬邊框 |
-| `--border-gold-glow` | `rgba(234, 179, 8, 0.45)` | 卡片 Hover 邊框與彈窗發光描邊 |
-| `--shadow-gold` | `0 12px 36px rgba(234, 179, 8, 0.18)` | 金色光暈立體陰影 |
-
-### 4.2 字體與排版規範
-
-| 應用層級 | 字型設定 (Font-Family) | 字重與尺寸規格 | 應用對象 |
-|---|---|---|---|
-| 中文典雅大標 | `Noto Serif TC`, serif | 700–900，行高 1.2–1.3 | Hero 主標題、區塊標題、店鋪店名 |
-| 中文內文與按鈕 | `Noto Sans TC`, sans-serif | 400–700，基準 16px，行高 1.7 | 正文段落、導覽連結、卡片描述、按鈕 |
-| 英文標籤與數據 | `Outfit`, sans-serif | 600–800，字距 `0.1em–0.22em` | 區塊英文小標、數據數字、優惠券代碼 |
-| 區塊 Eyebrow | `Outfit` + `Noto Sans TC` | 0.85rem，700，大寫字距 | `CURRY EXPLORATION` 等分類標籤 |
-| Hero 主標題 | `Noto Serif TC` | `clamp(2.4rem, 4.4vw, 3.8rem)` | 首頁核心精神宣示語 |
-| 區塊主標題 | `Noto Serif TC` | `clamp(2rem, 3.2vw, 2.7rem)` | 各 Section 大標題 |
-
-### 4.3 版面佈局、圓角與陰影
-
-- **版心容器**：`width: min(1200px, calc(100% - 48px)); margin-inline: auto;`
-- **圓角層次**：
-  - 小圓角 `--radius-sm: 8px`（按鈕、次級資訊盒）
-  - 中圓角 `--radius-md: 14px`（商品特色卡、優惠券卡）
-  - 大圓角 `--radius-lg: 20px`（專賣店卡片、測驗面板、彈窗）
-  - 全圓角 `--radius-full: 9999px`（Pill 標籤、主要 CTA 按鈕、Toast）
-
----
-
-## 5. 頁面資訊架構與區塊規格
-
-### 5.1 固定頁首與主要導覽 (`.site-header`)
-
-```text
-header.site-header (Sticky 定位，top: 0，高 76px，毛玻璃 backdrop-filter: blur(14px))
-├─ .container.nav-wrapper
-│  ├─ a.brand-logo
-│  │  ├─ .brand-icon-box (42x42px，金色漸層背景，內置 SVG 辛香鍋圖騰)
-│  │  └─ .brand-logo-text ("咖哩部落客" / "CURRY BLOGGER")
-│  ├─ nav
-│  │  └─ ul.nav-links (桌面版水平排列，gap: 32px)
-│  │     ├─ a[href="#styles"] 探索各國不同種風味
-│  │     ├─ a[href="#shops"] 特色專賣店
-│  │     ├─ a[href="#craft"] 職人熟成工藝
-│  │     ├─ a[href="#quiz"] 尋味測驗
-│  │     └─ a[href="#newsletter"] 饕客週報
-│  └─ .header-actions
-│     └─ a.btn-gold-solid[href="#shops"] "探索專賣店 ➜"
-```
-
-- **視覺特徵**：半透明黑底 `rgba(17, 14, 11, 0.88)`，底部有 `rgba(234, 179, 8, 0.15)` 金色細線。
-- **互動效果**：導覽連結 Hover 時底部由左向右延展 2px 金色底線。
-
----
-
-### 5.2 Hero 旗艦主視覺 (`#home` / `.hero`)
-
-| 項目 | 規格細節 |
-|---|---|
-| **版面佈局** | 桌面雙欄非對稱網格 `1.15fr / 0.85fr`，欄距 60px；上下內距 90px / 110px |
-| **背景效果** | 雙重徑向光暈漸層（金黃色 12% + 焦糖色 10%）疊加深黑底色 |
-| **左欄內容** | 1. 榮譽小徽章：`★ 全台特色獨立咖哩專賣店評鑑指南`<br>2. H1 主標題：`尋訪極致辛香，品味每一勺靈魂咖哩`（「靈魂咖哩」具金色底線螢光效果）<br>3. 前導文案：闡述 48 小時洋蔥焦糖化、數十種新鮮香料爆香與 72 小時低溫熟成工藝<br>4. CTA 按鈕群：`[立即領取專賣店招待券 ➜]`（連至 `#shops`）與 `[點擊按鈕隨機生成一種咖哩 💡]`（連至 `#quiz`）<br>5. 數據指標列：`50+` 精選專賣店、`120+` 深度評鑑、`100%` 實地探訪消費禮遇 |
-| **右欄插畫** | 1. 高階黑金展示卡片（`.hero-visual-card`，金色外光暈）<br>2. 中心為 CSS 動態脈動光暈（`.spice-glow`）<br>3. 內嵌原創 SVG 咖哩盛盤（高質感金邊陶盤、金黃咖哩表面、晶亮白飯、彩椒紅椒顆粒、香料上升蒸氣）<br>4. 浮動資訊徽章：`★ 本月特選私房專賣店・出示部落客專屬畫面享加料招待` |
-
----
-
-### 5.3 咖哩風味流派推廣 (`#styles`)
-
-- **區塊標題**：`CURRY EXPLORATION`｜`推廣多元風味・探索特色咖哩`
-- **網格結構**：`grid-template-columns: repeat(auto-fit, minmax(260px, 1fr))`，4 大代表流派卡片：
-
-| 流派名稱 | 工藝徽章 | 核心風味特色 | 特色標籤 | 推薦搭配名菜 |
-|---|---|---|---|---|
-| **日式低溫熟成黑咖哩** | 72hr 慢火工藝 | 焦糖洋蔥、蘋果、蜂蜜與牛骨高湯，經數日低溫熟成，濃稠深邃帶黑可可尾韻 | 果香甘醇、厚實濃稠、搭配越光米 | 厚切和牛漢堡排 / 慢燉牛頰 |
-| **印度正宗瑪莎拉咖哩** | 現磨原粒香料 | 小荳蔻、芫荽籽、茴香與丁香現磨爆香，辛香層次直接在舌尖引爆 | 辛香衝擊、多層次餘韻、炭烤蒜香烤餅 | 坦都里奶油香料雞 / 羊肉咖哩 |
-| **泰式宮廷青檸綠咖哩** | 南洋天然香草 | 綠辣椒、檸檬葉、南薑、香茅石臼搗碎注入濃椰漿，滑順溫潤後綻放清香酸辣 | 椰奶濃香、酸辣爽口、泰國茉莉香米 | 炭烤野生草蝦 / 鮮嫩去骨雞腿 |
-| **歐風法式牛頰咖哩** | 法式頂級高湯 | 法式多蜜醬汁結合波爾多紅酒與根莖蔬菜低溫煨煮數十小時，具絲絨般奢華光澤 | 高級感極致、紅酒溫潤、法式麵包盅 | 勃根地慢燉牛小排 / 嫩煎鴨胸 |
-
----
-
-### 5.4 特選專賣店與到店導流消費專區 (`#shops`)
-
-**設計目的**：落實規格要求之「**吸引喜歡吃咖哩的人到各家咖哩專賣店消費**」。
-
-#### 5.4.1 分類篩選列（Filter Toolbar）
-- 按鈕群：`全部專賣店 (6)`、`日式熟成`、`印度辛香`、`泰式宮廷`、`歐風法式`、`湯咖哩/特色乾咖哩`。
-- 切換時透過 JavaScript 控制卡片 `display` 與淡入動畫。
-
-#### 5.4.2 專賣店卡片清單（6 家名店完整資料庫）
-
-| ID | 店面名稱 | 分類 | 門市地址 | 必點鎮店招牌 | 獨家到店消費禮遇（核心誘因） | 專屬招待代碼 |
-|---|---|---|---|---|---|---|
-| `shop1` | **琥珀黑研所・熟成咖哩專売** | `japanese` | 台北市大安區敦化南路一段 187 巷 26 號 | 72小時特濃黑牛筋熟成咖哩佐溫泉蛋 | 現場出示即享「免費升級炙燒起司」或「溏心蛋一份」 | `CURRY-AMBER-72` |
-| `shop2` | **香料織造所・Masala Lab** | `indian` | 台中市西區中美街 363 巷 12 號 | 北印度經典奶油嫩雞佐窯烤起司蒜香饢餅 | 任點雙人套餐，贈「手煮香料熱奶茶 (Masala Chai)」兩杯 | `CHAI-MASALA-88` |
-| `shop3` | **青翠金芒・泰式宮廷咖哩** | `thai` | 高雄市鼓山區明誠四路 88 號 | 慢烤野生海大蝦青咖哩佐泰國頂級香米 | 現場出示即享「主廚手工南洋香蘭冰淇淋一份」 | `THAI-GREEN-VIP` |
-| `shop4` | **法爾塞斯・歐風紅酒咖哩殿** | `european` | 台北市信義區忠孝東路四段 553 巷 18 號 | 勃根地紅酒燉澳洲牛頰特級黑咖哩 | 任點主餐免費升級「黑松露濃湯與手工法棍盅」 | `EURO-WINE-99` |
-| `shop5` | **晴日和食・金黃炙燒漢堡排咖哩** | `japanese` | 新竹市東區關新路 120 號 | 特選雙層爆汁和牛漢堡排佐金黃甘口咖哩 | 出示優惠碼享「店內咖哩醬與白飯免費續一次」 | `WAGYU-PATTY-2026` |
-| `shop6` | **辛韻・北海道炙燒豚角煮湯咖哩** | `soup` | 台南市中西區友愛街 115 巷 9 號 | 特選彩蔬炙燒厚切豚角煮湯咖哩 | 打卡到店即招待「炙烤彩椒野菜串盛合一份」 | `SAPPORO-SOUP-01` |
-
-#### 5.4.3 卡片動作按鈕（Store Actions）
-- **按鈕 1：查看門市詳情 (`btn-detail`)**：觸發 `openShopModal(shopKey)`，開啟專屬 `<dialog>`。
-- **按鈕 2：領取到店券 (`btn-coupon`)**：觸發 `claimCoupon(shopName, code)`，自動寫入剪貼簿並彈出 Toast 提示。
-
----
-
-### 5.5 職人熟成工藝與風味矩陣 (`#craft`)
-
-- **左欄：四大工藝步驟（Craft Steps）**
-  1. `01` **洋蔥焦糖化工法 (Caramelization)**：大量甜洋蔥以文火連續慢炒數小時，逼出深邃琥珀甘甜。
-  2. `02` **24種天然原粒香料焙炒**：丁香、茴香、小荳蔻等於銅鍋中乾焙醒香，現磨釋放芬芳精油。
-  3. `03` **陶鍋低溫靜置熟成 (Aging)**：熬煮後低溫熟成 48 至 72 小時，辛辣轉為圓融溫潤。
-  4. `04` **頂級米飯契作搭配**：精選新瀉越光米或薑黃香米，每粒米均勻包覆醬汁。
-- **右欄：專業五維評鑑矩陣（Flavor Matrix）**
-  - 辛香深度 (Spiciness Depth)：`95%`
-  - 天然果香甘甜 (Natural Sweetness)：`88%`
-  - 醬汁濃稠質地 (Texture & Body)：`92%`
-  - 熟成圓潤感 (Aging Smoothness)：`96%`
-  - 米飯包覆契合度 (Rice Pairing)：`98%`
-  - 搭配漸層進度條（`background: linear-gradient(90deg, var(--curry-rich), var(--primary-yellow))`）。
-
----
-
-### 5.6 咖哩尋味配對測驗 (`#quiz`)
-
-- **功能用途**：互動引導饕客依照當前食慾，推薦最適咖哩種類與對應專賣店。
-- **進度指示器**：3 格進度指示條（`.progress-pip`）。
-- **步驟題目設計**：
-  - **第 1 題（口感質地）**：濃稠厚實派 (`rich`) / 香料奔放派 (`spicy`) / 南洋香草高湯派 (`refreshing`)。
-  - **第 2 題（辣度層次）**：微辛甘口 (`mild`) / 中辛溫和 (`medium`) / 大辛熱烈 (`hot`)。
-  - **第 3 題（主角主食）**：極品牛肉牛筋 (`beef`) / 炭烤香料嫩雞 (`chicken`) / 炙燒厚切豚肉漢堡排 (`pork`)。
-- **結果面板（Result Panel）**：
-  - 根據選擇條件命中：
-    - 濃郁牛肉系 ➜ 推薦「72小時低溫熟成黑牛筋咖哩」（導引至【琥珀黑研所】或【法爾塞斯】）。
-    - 辛香雞肉系 ➜ 推薦「印度正宗現磨香料奶油嫩雞咖哩」（導引至【香料織造所】）。
-    - 清爽高湯系 ➜ 推薦「泰式皇家青檸綠咖哩或北海道湯咖哩」（導引至【青翠金芒】或【辛韻】）。
-  - 提供一鍵篩選推薦專賣店與重新測驗按鈕。
-
----
-
-### 5.7 饕客探店密報訂閱 (`#newsletter`)
-
-- **標題與文案**：`STAY SPICED UP`｜`訂閱每週「咖哩探店密報」`。
-- **表單元件**：
-  - `<input type="email" class="newsletter-input" required>`，具備現代外發光焦點。
-  - `<button type="submit" class="btn-gold-solid">免費訂閱</button>`。
-- **提交反饋**：表單攔截預設提交，清空輸入框並喚起 Toast 提示，提示首份每月招待券已送達。
-
----
-
-### 5.8 頁尾資訊 (`.site-footer`)
-
-- **四欄式網格**：
-  1. **品牌精神欄**：品牌 Logo、精神標語、作者學生資訊 Badge（`學號：11419941`、`作者：楊佑笙`）。
-  2. **探索分類欄**：5 大咖哩流派快速錨點連結，還有簡約的咖哩介紹。
-  3. **專賣店合作欄**：推薦名單、到店招待禮領取、探店踩點合作。
-  4. **規格聲明欄**：明確標註網站名稱、風格、品牌黃色與導流消費目標。
-- **底列**：版權宣告與 `Designed with Pure HTML5, Modern CSS & Vanilla JS`。
-
----
-
-### 5.9 門市詳情與到店招待券彈窗 (`<dialog id="shop-dialog">`)
-
-- **容器規格**：原生 HTML5 `<dialog>`，寬度 `max-width: 580px`，深黑浮雕背景與金色外發光。
-- **Backdrop 特效**：半透明黑背景搭配 `backdrop-filter: blur(8px)`。
-- **核心內容**：
-  1. **專屬招待卡**：虛線票券邊框，包含禮遇說明（如「免費招待炙燒莫札瑞拉起司一份」）。
-  2. **招待代碼盒**：大字號金色優惠碼與「複製代碼」按鈕。
-  3. **門市資訊清單**：營業時間、門市地址、聯絡電話、招牌推薦料理。
-  4. **互動操作**：點擊右上角叉叉、點擊「稍後再看」或**點擊視窗外部遮罩**均能自動關閉視窗。
-  5. **外部跳轉**：「開啟 Google 地圖導航」按鈕直接以 `encodeURIComponent` 帶入地址跳轉至 Google Maps。
-
----
-
-### 5.10 全域 Toast 通知 (`#toast-notice`)
-
-- **定位規格**：`position: fixed; bottom: 24px; right: 24px; z-index: 2000;`。
-- **視覺呈現**：鮮黃底黑字、全圓角膠囊造型、金色立體陰影、SVG 打勾圖示。
-- **無障礙屬性**：`role="alert"`、`aria-live="polite"`。
-- **自動隱藏**：顯示 4 秒後自動加入滑出淡化動畫。
-
----
-
-## 6. JavaScript 互動規格
-
-### 6.1 專賣店分類篩選器
-
-```javascript
-// 監聽各分類按鈕，比對卡片 data-category 屬性
-filterButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    // 1. 切換按鈕 active 樣式
-    // 2. 當 filterValue === "all" 或符合卡片屬性時 display: flex，否則 display: none
-    // 3. 觸發 0.35s 淡入動畫
-  });
-});
-```
-
-### 6.2 彈窗操作與遮罩點擊關閉
-
-- 開啟時呼叫 `shopDialog.showModal()`，動態注入選中專賣店之地址、電話、營業時間、招牌菜與優惠碼。
-- 監聽 `shopDialog.addEventListener("click", ...)`，比對游標座標是否超出 `dialog.getBoundingClientRect()` 邊界，超出時自動執行 `shopDialog.close()`。
-
-### 6.3 剪貼簿 API 與到店券領取
-
-- 呼叫 `navigator.clipboard.writeText(code)`：
-  - 成功時喚起 Toast：「已領取【店名】專屬代碼：XXXX！到店出示即可享招待。」
-  - 若剪貼簿存取受限，執行安全降級提示，提醒截圖出示。
-
-### 6.4 尋味測驗狀態機（Quiz State Machine）
-
-- 維護全域狀態物件 `quizState: { step1, step2, step3 }`。
-- `selectQuizOption(step, value)` 推進題目並點亮頂部進度條指示點（`.progress-pip.active`）。
-- 第 3 步完成後執行 `showQuizResult()` 根據條件演算法計算命定咖哩，並顯示結果卡與推薦店面捷徑。
-
----
-
-## 7. 響應式斷點規格 (Responsive Breakpoints)
-
-### 7.1 平板尺寸：`max-width: 992px`
-- 導覽列文字收合，保留行動版按鈕。
-- Hero 主視覺網格由左右雙欄轉為單欄垂直排列，插畫移至下方置中。
-- 職人熟成工藝與五維矩陣由雙欄轉為單欄堆疊。
-- 頁尾由四欄轉為兩欄網格。
-
-### 7.2 手機尺寸：`max-width: 640px`
-- 專賣店卡片網格轉為單欄 `1fr`。
-- Hero 數據指標列由橫向排列轉為縱向排列。
-- 店鋪卡片按鈕群（查看詳情 / 領取招待券）轉為單欄垂直排版，保證拇指點擊友善區。
-- 電子報訂閱表單轉為垂直堆疊，輸入框與按鈕各佔滿寬。
-- 頁尾轉為單欄居左排列。
-
----
-
-## 8. 無障礙與可用性標準 (Accessibility)
-
-1. **語意標籤架構**：嚴格使用 `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<dialog>`, `<footer>`，杜絕過度 `<div>` 化。
-2. **ARIA 屬性完整性**：
-   - 導覽列具備 `aria-label="主要導覽選單"`。
-   - 專賣店篩選列具備 `role="toolbar"` 與 `aria-label="咖哩種類篩選"`。
-   - 彈窗具備 `aria-labelledby="dialog-store-title"`。
-   - Toast 具備 `role="alert"` 與 `aria-live="polite"`。
-3. **高對比度規範**：所有淺色內文與黃金標題在深黑底色（`#110E0B`）上之色彩對比度皆高於 WCAG AAA 標準（對比度 > 7:1）。
-4. **鍵盤與焦點**：所有按鈕與連結均具備清楚的 `:focus-visible` 樣式。
-
----
-
-## 9. 後續規格微調與擴充指南
-
-| 修改需求 | 推薦修改位置 | 注意事項 |
-|---|---|---|
-| **新增合作專賣店** | `STORES_DATA` 物件與 `#shops` 網格中新增 `<article class="store-card">` | 需確保 `data-category` 與分類按鈕匹配，並填寫專屬招待代碼與禮遇內容 |
-| **調整品牌主色調** | 修改 `:root` 中之 `--primary-yellow` 與相關漸層變數 | 保持主色與黑底之高對比度，切勿單獨硬編碼單一標籤樣式 |
-| **新增咖哩流派** | 修改 `#styles` 區塊中之 `.style-card` 與分類按鈕 | 建議同時更新尋味測驗中的推薦演算法判定分支 |
-| **串接真實會員後端** | 修改 `handleSubscribe(e)` 與 `claimCoupon()` 函式 | 保留現有的 Toast 反饋與前端驗證邏輯，僅需替換 API `fetch()` 請求 |
-
----
-
-## 10. 規格驗收查核表 (Checklist)
-
-- [x] 網站名稱正確呈現為「**咖哩部落客**」。
-- [x] 品牌色彩完全符合規格設定之「**黃色**」（薑黃金、琥珀咖哩金）。
-- [x] 風格精準詮釋「**高級 或 特色咖哩**」，具備黑金高級視覺與職人熟成工藝解說。
-- [x] 完整涵蓋多元咖哩流派介紹（日式熟成、印度辛香、泰式宮廷、歐風法式、湯咖哩）。
-- [x] 具備明確的到店消費吸引功能（專賣店專屬招待禮遇、一鍵複製招待代碼、Google 地圖導航）。
-- [x] 實作 HTML5 原生 `<dialog>` 彈窗，支援遮罩點擊關閉。
-- [x] 具備 3 秒咖哩尋味測驗與即時結果運算。
-- [x] 具備 Toast 提示、電子報訂閱與平滑滾動。
-- [x] 檔案完全獨立自足（純 HTML/CSS/JS），無任何外部腳本依賴或失效圖片破圖。
-- [x] 完成 RWD 響應式適配與無障礙（A11y）設定。
+  
+  <!-- Google Fonts Preconnect & Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;900&family=Noto+Serif+TC:wght@600;700;900&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CSS Variables & Design Tokens (黃色系 / 高級特色咖哩質感)
+       ========================================================================== */
+    :root {
+      /* 黃色與辛香金色系列 (Brand Color: 黃色) */
+      --primary-yellow: #EAB308;        /* 亮黃/薑黃金色 */
+      --primary-yellow-hover: #FACC15;  /* 亮麗暖黃 */
+      --primary-yellow-deep: #CA8A04;   /* 濃郁深黃 */
+      --amber-gold: #F59E0B;            /* 琥珀香料金 */
+      --curry-rich: #D97706;            /* 焦糖熟成咖哩色 */
+      --curry-roasted: #B45309;         /* 焙炒香料深褐 */
+      --spice-cinnamon: #78350F;        /* 肉桂深咖 */
+      
+      /* 高級黑金基底 (Dark Luxury Gourmet) */
+      --bg-dark-base: #110E0B;          /* 深沈碳黑底色 */
+      --bg-dark-surface: #1B1612;       /* 質感卡片表面色 */
+      --bg-dark-elevated: #26201A;      /* 浮雕卡片色 */
+      --bg-light-soft: #FDF9EE;         /* 米白暖香 */
+      
+      /* 文字色彩 */
+      --text-white: #FCFAF6;            /* 亮白 */
+      --text-light: #EADFD0;            /* 暖淺褐 */
+      --text-muted: #A89B8C;            /* 柔和次要文字 */
+      --text-dark: #1F1B16;             /* 深色字體 */
+      
+      /* 邊框與光影 */
+      --border-gold-subtle: rgba(234, 179, 8, 0.22);
+      --border-gold-glow: rgba(234, 179, 8, 0.45);
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.45);
+      --shadow-gold: 0 12px 36px rgba(234, 179, 8, 0.18);
+      
+      /* 字型系統 */
+      --font-body: "Noto Sans TC", sans-serif;
+      --font-serif: "Noto Serif TC", serif;
+      --font-en: "Outfit", sans-serif;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+      --container-width: 1200px;
+    }
+
+    /* Reset & Base Setup */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+    }
+
+    body {
+      background-color: var(--bg-dark-base);
+      color: var(--text-light);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* Container Utility */
+    .container {
+      width: min(var(--container-width), calc(100% - 48px));
+      margin-inline: auto;
+    }
+
+    /* Typography Utilities */
+    .serif-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      color: var(--text-white);
+      line-height: 1.3;
+    }
+
+    .en-tag {
+      font-family: var(--font-en);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.85rem;
+      color: var(--primary-yellow);
+    }
+
+    .badge-yellow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(234, 179, 8, 0.12);
+      border: 1px solid var(--border-gold-subtle);
+      color: var(--primary-yellow);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       Header & Navigation
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(17, 14, 11, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(234, 179, 8, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--text-white);
+      letter-spacing: 0.05em;
+    }
+
+    .brand-icon-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--primary-yellow), var(--curry-rich));
+      display: grid;
+      place-items: center;
+      color: var(--bg-dark-base);
+      box-shadow: 0 4px 14px rgba(234, 179, 8, 0.35);
+    }
+
+    .brand-logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-logo-text span:first-child {
+      color: var(--text-white);
+      letter-spacing: 0.06em;
+      line-height: 1.1;
+    }
+
+    .brand-logo-text .sub-en {
+      font-family: var(--font-en);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: var(--primary-yellow);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-light);
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary-yellow);
+      transition: width 0.25s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-yellow);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-gold-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 20px;
+      border: 1.5px solid var(--primary-yellow);
+      border-radius: var(--radius-full);
+      color: var(--primary-yellow);
+      font-size: 0.88rem;
+      font-weight: 700;
+      transition: all 0.25s ease;
+    }
+
+    .btn-gold-outline:hover {
+      background: var(--primary-yellow);
+      color: var(--bg-dark-base);
+      box-shadow: 0 0 16px rgba(234, 179, 8, 0.4);
+    }
+
+    .btn-gold-solid {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 26px;
+      background: linear-gradient(135deg, var(--primary-yellow), var(--amber-gold));
+      color: var(--bg-dark-base);
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: var(--radius-full);
+      box-shadow: 0 6px 20px rgba(234, 179, 8, 0.3);
+      transition: all 0.25s ease;
+    }
+
+    .btn-gold-solid:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(234, 179, 8, 0.45);
+      background: linear-gradient(135deg, var(--primary-yellow-hover), var(--primary-yellow));
+    }
+
+    /* Mobile Menu Toggle */
+    .mobile-menu-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      color: var(--primary-yellow);
+    }
+
+    /* ==========================================================================
+       Hero Section (品牌視覺 & 核心召喚)
+       ========================================================================== */
+    .hero {
+      position: relative;
+      padding: 90px 0 110px;
+      overflow: hidden;
+      background: radial-gradient(circle at 75% 20%, rgba(234, 179, 8, 0.12) 0%, transparent 55%),
+                  radial-gradient(circle at 20% 80%, rgba(217, 119, 6, 0.1) 0%, transparent 50%),
+                  var(--bg-dark-base);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+      line-height: 1.22;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-title .highlight {
+      color: var(--primary-yellow);
+      position: relative;
+      display: inline-block;
+    }
+
+    .hero-title .highlight::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 4px;
+      width: 100%;
+      height: 8px;
+      background: rgba(234, 179, 8, 0.25);
+      z-index: -1;
+      border-radius: 4px;
+    }
+
+    .hero-desc {
+      font-size: 1.12rem;
+      color: var(--text-light);
+      max-width: 580px;
+      line-height: 1.85;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .hero-metrics {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(234, 179, 8, 0.18);
+      width: 100%;
+    }
+
+    .metric-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .metric-num {
+      font-family: var(--font-en);
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+      line-height: 1.1;
+    }
+
+    .metric-label {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Hero Visual Showcase */
+    .hero-visual-card {
+      position: relative;
+      background: linear-gradient(145deg, var(--bg-dark-surface), var(--bg-dark-elevated));
+      border: 1px solid var(--border-gold-glow);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      box-shadow: var(--shadow-gold), var(--shadow-md);
+    }
+
+    .curry-emblem {
+      width: 100%;
+      height: 320px;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at center, #2e1d08 0%, #15110d 75%);
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(234, 179, 8, 0.2);
+    }
+
+    .spice-glow {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(234, 179, 8, 0.35) 0%, transparent 70%);
+      filter: blur(25px);
+      animation: pulseGlow 5s infinite alternate ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(0.9); opacity: 0.6; }
+      100% { transform: scale(1.15); opacity: 0.95; }
+    }
+
+    .curry-dish-illustration {
+      position: relative;
+      z-index: 2;
+      width: 200px;
+      height: 200px;
+    }
+
+    .floating-store-badge {
+      position: absolute;
+      bottom: -16px;
+      right: 20px;
+      background: var(--bg-dark-base);
+      border: 1px solid var(--primary-yellow);
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 3;
+    }
+
+    .store-badge-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--primary-yellow);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--bg-dark-base);
+      font-weight: 900;
+    }
+
+    .store-badge-text h4 {
+      font-size: 0.88rem;
+      color: var(--text-white);
+      margin: 0;
+    }
+
+    .store-badge-text p {
+      font-size: 0.76rem;
+      color: var(--primary-yellow);
+      margin: 0;
+    }
+
+    /* ==========================================================================
+       Curry Styles Showcase (推廣各種不同咖哩)
+       ========================================================================== */
+    .section-py {
+      padding: 95px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 720px;
+      margin-inline: auto;
+      margin-bottom: 56px;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 3.2vw, 2.7rem);
+      margin-top: 10px;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      margin-top: 14px;
+    }
+
+    .styles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .style-card {
+      background: var(--bg-dark-surface);
+      border: 1px solid var(--border-gold-subtle);
+      border-radius: var(--radius-md);
+      padding: 30px 24px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .style-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-yellow), var(--curry-rich));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .style-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-gold-glow);
+      box-shadow: 0 16px 36px rgba(0,0,0,0.5), 0 0 20px rgba(234, 179, 8, 0.12);
+    }
+
+    .style-card:hover::before {
+      opacity: 1;
+    }
+
+    .style-icon-wrapper {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      background: rgba(234, 179, 8, 0.12);
+      border: 1px solid var(--border-gold-subtle);
+      display: grid;
+      place-items: center;
+      color: var(--primary-yellow);
+      margin-bottom: 22px;
+      font-size: 1.6rem;
+    }
+
+    .style-card h3 {
+      font-size: 1.25rem;
+      color: var(--text-white);
+      margin-bottom: 10px;
+    }
+
+    .style-card p {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      flex-grow: 1;
+      line-height: 1.7;
+    }
+
+    .style-traits {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .trait-pill {
+      font-size: 0.75rem;
+      background: var(--bg-dark-elevated);
+      color: var(--primary-yellow);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(234, 179, 8, 0.16);
+    }
+
+    .style-recommendation {
+      font-size: 0.84rem;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(234, 179, 8, 0.2);
+      color: var(--text-light);
+    }
+
+    .style-recommendation strong {
+      color: var(--primary-yellow);
+    }
+
+    /* ==========================================================================
+       Curry Specialty Stores (吸引消費者前往專賣店消費)
+       ========================================================================== */
+    .stores-section {
+      background: linear-gradient(180deg, var(--bg-dark-base) 0%, #17130F 50%, var(--bg-dark-base) 100%);
+      position: relative;
+    }
+
+    /* Filter Controls */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    .filter-btn {
+      padding: 10px 22px;
+      border-radius: var(--radius-full);
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: var(--bg-dark-surface);
+      color: var(--text-muted);
+      border: 1px solid rgba(234, 179, 8, 0.18);
+      transition: all 0.25s ease;
+    }
+
+    .filter-btn:hover {
+      color: var(--text-white);
+      border-color: var(--primary-yellow);
+    }
+
+    .filter-btn.active {
+      background: var(--primary-yellow);
+      color: var(--bg-dark-base);
+      border-color: var(--primary-yellow);
+      font-weight: 700;
+      box-shadow: 0 4px 16px rgba(234, 179, 8, 0.35);
+    }
+
+    /* Stores Grid */
+    .stores-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 32px;
+    }
+
+    .store-card {
+      background: var(--bg-dark-surface);
+      border: 1px solid var(--border-gold-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .store-card:hover {
+      border-color: var(--border-gold-glow);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-gold), var(--shadow-md);
+    }
+
+    .store-cover {
+      height: 190px;
+      position: relative;
+      background: linear-gradient(135deg, #2D2218, #18120B);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .store-cover-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+      background-image: radial-gradient(var(--primary-yellow) 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+
+    .store-category-tag {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(17, 14, 11, 0.85);
+      backdrop-filter: blur(6px);
+      color: var(--primary-yellow);
+      border: 1px solid var(--primary-yellow);
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      z-index: 2;
+    }
+
+    .store-rating-tag {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(17, 14, 11, 0.85);
+      backdrop-filter: blur(6px);
+      color: #FBBF24;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      z-index: 2;
+    }
+
+    .store-body {
+      padding: 26px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .store-title-wrap {
+      margin-bottom: 12px;
+    }
+
+    .store-title {
+      font-size: 1.35rem;
+      color: var(--text-white);
+      margin-bottom: 4px;
+    }
+
+    .store-location {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .signature-dish-box {
+      background: var(--bg-dark-elevated);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      margin: 14px 0 18px;
+      border-left: 3px solid var(--primary-yellow);
+    }
+
+    .signature-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--primary-yellow);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .signature-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-white);
+      margin-top: 2px;
+    }
+
+    .store-description {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    /* 關鍵促銷：獨家到店招待禮遇 (消費誘因) */
+    .exclusive-offer-badge {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.15), rgba(217, 119, 6, 0.12));
+      border: 1px solid var(--border-gold-glow);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .offer-icon {
+      color: var(--primary-yellow);
+      font-size: 1.25rem;
+    }
+
+    .offer-text {
+      font-size: 0.82rem;
+      color: var(--text-light);
+    }
+
+    .offer-text strong {
+      color: var(--primary-yellow);
+      font-weight: 700;
+    }
+
+    .store-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .btn-detail {
+      background: var(--bg-dark-elevated);
+      color: var(--text-light);
+      border: 1px solid rgba(234, 179, 8, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn-detail:hover {
+      background: rgba(234, 179, 8, 0.15);
+      color: var(--primary-yellow);
+      border-color: var(--primary-yellow);
+    }
+
+    .btn-coupon {
+      background: linear-gradient(135deg, var(--primary-yellow), var(--curry-rich));
+      color: var(--bg-dark-base);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(234, 179, 8, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .btn-coupon:hover {
+      background: linear-gradient(135deg, var(--primary-yellow-hover), var(--primary-yellow));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(234, 179, 8, 0.35);
+    }
+
+    /* ==========================================================================
+       Curry Craftsmanship (職人特色與高級工藝)
+       ========================================================================== */
+    .craft-section {
+      background: var(--bg-dark-base);
+      border-top: 1px solid rgba(234, 179, 8, 0.12);
+      border-bottom: 1px solid rgba(234, 179, 8, 0.12);
+    }
+
+    .craft-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .craft-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .craft-step-item {
+      display: flex;
+      gap: 20px;
+      background: var(--bg-dark-surface);
+      border: 1px solid var(--border-gold-subtle);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      transition: all 0.25s ease;
+    }
+
+    .craft-step-item:hover {
+      border-color: var(--primary-yellow);
+      transform: translateX(6px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+
+    .step-number {
+      font-family: var(--font-en);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+      min-width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(234, 179, 8, 0.1);
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--border-gold-subtle);
+    }
+
+    .step-content h4 {
+      font-size: 1.15rem;
+      color: var(--text-white);
+      margin-bottom: 6px;
+    }
+
+    .step-content p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* Flavor Matrix Card */
+    .flavor-matrix-card {
+      background: linear-gradient(145deg, var(--bg-dark-surface), var(--bg-dark-elevated));
+      border: 1px solid var(--border-gold-glow);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow-gold), var(--shadow-md);
+    }
+
+    .matrix-title {
+      font-size: 1.3rem;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .flavor-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .bar-row {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bar-label-group {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+    }
+
+    .bar-name {
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    .bar-value {
+      color: var(--primary-yellow);
+      font-weight: 700;
+      font-family: var(--font-en);
+    }
+
+    .bar-track {
+      height: 8px;
+      background: var(--bg-dark-base);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      border: 1px solid rgba(234, 179, 8, 0.15);
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--curry-rich), var(--primary-yellow));
+      border-radius: var(--radius-full);
+      transition: width 1s ease-in-out;
+    }
+
+    /* ==========================================================================
+       Curry Finder Quiz (尋味測驗：吸引饕客探索專門店)
+       ========================================================================== */
+    .quiz-section {
+      background: radial-gradient(circle at center, rgba(234, 179, 8, 0.08) 0%, transparent 70%),
+                  var(--bg-dark-base);
+    }
+
+    .quiz-container {
+      max-width: 820px;
+      margin-inline: auto;
+      background: var(--bg-dark-surface);
+      border: 1px solid var(--border-gold-glow);
+      border-radius: var(--radius-lg);
+      padding: 44px;
+      box-shadow: var(--shadow-gold), var(--shadow-md);
+    }
+
+    .quiz-progress-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 30px;
+    }
+
+    .progress-pip {
+      flex: 1;
+      height: 6px;
+      border-radius: var(--radius-full);
+      background: rgba(234, 179, 8, 0.2);
+      transition: background 0.3s ease;
+    }
+
+    .progress-pip.active {
+      background: var(--primary-yellow);
+      box-shadow: 0 0 10px rgba(234, 179, 8, 0.5);
+    }
+
+    .quiz-question-box h3 {
+      font-size: 1.45rem;
+      color: var(--text-white);
+      margin-bottom: 24px;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .quiz-option-btn {
+      background: var(--bg-dark-elevated);
+      border: 1.5px solid rgba(234, 179, 8, 0.2);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      text-align: left;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .quiz-option-btn:hover {
+      border-color: var(--primary-yellow);
+      transform: translateY(-2px);
+    }
+
+    .quiz-option-btn.selected {
+      background: rgba(234, 179, 8, 0.15);
+      border-color: var(--primary-yellow);
+      box-shadow: 0 0 14px rgba(234, 179, 8, 0.25);
+    }
+
+    .quiz-option-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-white);
+      margin-bottom: 4px;
+    }
+
+    .quiz-option-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Quiz Result Panel */
+    .quiz-result-panel {
+      display: none;
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(217, 119, 6, 0.05));
+      border: 1px solid var(--primary-yellow);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      text-align: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .result-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary-yellow);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .result-title {
+      font-size: 1.5rem;
+      color: var(--text-white);
+      margin: 8px 0 12px;
+    }
+
+    .result-desc {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      max-width: 580px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+
+    .result-action-group {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    /* ==========================================================================
+       Newsletter & Promotion Section (吸引持續關注與消費)
+       ========================================================================== */
+    .newsletter-section {
+      background: linear-gradient(135deg, #221B14, #14100C);
+      border-top: 1px solid var(--border-gold-subtle);
+      border-bottom: 1px solid var(--border-gold-subtle);
+    }
+
+    .newsletter-card {
+      text-align: center;
+      max-width: 680px;
+      margin-inline: auto;
+      padding: 40px 20px;
+    }
+
+    .newsletter-card h3 {
+      font-size: 2rem;
+      color: var(--text-white);
+      margin-bottom: 14px;
+    }
+
+    .newsletter-card p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 12px;
+      max-width: 480px;
+      margin-inline: auto;
+    }
+
+    .newsletter-input {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(234, 179, 8, 0.3);
+      background: var(--bg-dark-base);
+      color: var(--text-white);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.25s ease;
+    }
+
+    .newsletter-input:focus {
+      border-color: var(--primary-yellow);
+      box-shadow: 0 0 12px rgba(234, 179, 8, 0.3);
+    }
+
+    /* ==========================================================================
+       Footer Section
+       ========================================================================== */
+    .site-footer {
+      background: #0B0907;
+      padding: 70px 0 36px;
+      border-top: 1px solid rgba(234, 179, 8, 0.15);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-brand p {
+      margin-top: 16px;
+      line-height: 1.75;
+      max-width: 320px;
+    }
+
+    .footer-col h4 {
+      color: var(--text-white);
+      font-size: 1rem;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .footer-col h4::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 24px;
+      height: 2px;
+      background: var(--primary-yellow);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary-yellow);
+      padding-left: 4px;
+    }
+
+    .footer-bottom {
+      padding-top: 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .author-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      background: rgba(234, 179, 8, 0.08);
+      border: 1px solid rgba(234, 179, 8, 0.2);
+      border-radius: var(--radius-full);
+      color: var(--primary-yellow);
+      font-size: 0.8rem;
+    }
+
+    /* ==========================================================================
+       Interactive Dialog Modal (店鋪詳情 & 獨家到店招待券)
+       ========================================================================== */
+    .modal-dialog {
+      margin: auto;
+      border: 1px solid var(--border-gold-glow);
+      background: var(--bg-dark-surface);
+      color: var(--text-light);
+      border-radius: var(--radius-lg);
+      padding: 0;
+      max-width: 580px;
+      width: calc(100% - 32px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), var(--shadow-gold);
+    }
+
+    .modal-dialog::backdrop {
+      background: rgba(10, 8, 6, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .modal-header {
+      padding: 24px 28px;
+      border-bottom: 1px solid rgba(234, 179, 8, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-dark-elevated);
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      color: var(--text-white);
+    }
+
+    .modal-close-btn {
+      color: var(--text-muted);
+      font-size: 1.5rem;
+      line-height: 1;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      color: var(--primary-yellow);
+      background: rgba(234, 179, 8, 0.1);
+    }
+
+    .modal-content {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .coupon-ticket {
+      background: linear-gradient(135deg, #2D2214, #1B150F);
+      border: 1.5px dashed var(--primary-yellow);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      position: relative;
+    }
+
+    .coupon-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .coupon-tag {
+      font-size: 0.72rem;
+      background: var(--primary-yellow);
+      color: var(--bg-dark-base);
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .coupon-code-box {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-dark-base);
+      border: 1px solid rgba(234, 179, 8, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 10px 16px;
+    }
+
+    .coupon-code {
+      font-family: var(--font-en);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary-yellow);
+      letter-spacing: 0.1em;
+    }
+
+    .btn-copy-code {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      background: var(--bg-dark-elevated);
+      border: 1px solid var(--border-gold-subtle);
+      padding: 5px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-copy-code:hover {
+      background: var(--primary-yellow);
+      color: var(--bg-dark-base);
+    }
+
+    .store-meta-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .store-meta-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .meta-label {
+      color: var(--primary-yellow);
+      min-width: 70px;
+      font-weight: 600;
+    }
+
+    .modal-footer {
+      padding: 20px 28px;
+      background: var(--bg-dark-elevated);
+      border-top: 1px solid rgba(234, 179, 8, 0.15);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    /* Toast Notification */
+    .toast-notice {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--primary-yellow);
+      color: var(--bg-dark-base);
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toast-notice.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       Responsive Media Queries
+       ========================================================================== */
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .craft-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .stores-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-metrics {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .newsletter-form {
+        flex-direction: column;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .store-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       1. Navigation Header
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <a href="#" class="brand-logo" aria-label="咖哩部落客 首頁">
+        <div class="brand-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a8 8 0 0 0-8 8v1a6 6 0 0 0 6 6h4a6 6 0 0 0 6-6v-1a8 8 0 0 0-8-8z"/>
+            <path d="M6 17v2a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3v-2"/>
+            <path d="M12 6v4"/>
+            <path d="M9 8h6"/>
+          </svg>
+        </div>
+        <div class="brand-logo-text">
+          <span>咖哩部落客</span>
+          <span class="sub-en">CURRY BLOGGER</span>
+        </div>
+      </a>
+
+      <nav aria-label="主要導覽選單">
+        <ul class="nav-links">
+          <li><a href="#styles" class="nav-link">探索風味</a></li>
+          <li><a href="#shops" class="nav-link">特色專賣店</a></li>
+          <li><a href="#craft" class="nav-link">職人熟成工藝</a></li>
+          <li><a href="#quiz" class="nav-link">尋味測驗</a></li>
+          <li><a href="#newsletter" class="nav-link">饕客週報</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="#shops" class="btn-gold-solid">
+          <span>探索專賣店</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         2. Hero Section (主視覺與核心號召)
+         ========================================================================== -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="badge-yellow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            <span>全台特色獨立咖哩專賣店評鑑指南</span>
+          </div>
+
+          <h1 class="serif-title hero-title">
+            尋訪極致辛香<br>
+            品味每一勺<span class="highlight">靈魂咖哩</span>
+          </h1>
+
+          <p class="hero-desc">
+            專為咖哩飯愛好者量身打造！從48小時洋蔥焦糖化、數十種新鮮香料乾煸爆香，到72小時低溫熟成工藝。我們走訪全台巷弄，精選最具特色與高級質感的咖哩專賣店，並提供專屬到店消費招待禮遇。
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#shops" class="btn-gold-solid">
+              <span>立即領取專賣店招待券</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="#quiz" class="btn-gold-outline">
+              <span>3秒咖哩尋味測驗 💡</span>
+            </a>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="metric-item">
+              <span class="metric-num">50+</span>
+              <span class="metric-label">精選特色專賣店</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-num">120+</span>
+              <span class="metric-label">深度風味評鑑</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-num">100%</span>
+              <span class="metric-label">實地探訪消費禮遇</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Visual Showcase -->
+        <div class="hero-visual-card">
+          <div class="curry-emblem">
+            <div class="spice-glow"></div>
+            <!-- SVG Illustration of Gourmet Curry Bowl -->
+            <svg class="curry-dish-illustration" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Dish Rim -->
+              <ellipse cx="100" cy="115" rx="88" ry="46" fill="#1C1712" stroke="#EAB308" stroke-width="3"/>
+              <!-- Rich Golden Curry Surface -->
+              <ellipse cx="100" cy="113" rx="76" ry="38" fill="url(#curryGrad)"/>
+              <!-- Steaming Spices Arc -->
+              <path d="M55 105C65 95 75 110 85 98C95 88 110 102 125 90C135 80 145 95 150 88" stroke="#FDE047" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+              <!-- Rice Portion -->
+              <path d="M42 110C42 90 70 75 96 75C110 75 125 82 128 95C108 95 85 102 42 110Z" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+              <!-- Garnish & Roast Spices -->
+              <circle cx="115" cy="115" r="7" fill="#EF4444"/>
+              <circle cx="132" cy="120" r="5" fill="#10B981"/>
+              <circle cx="102" cy="128" r="6" fill="#CA8A04"/>
+              <circle cx="85" cy="118" r="4" fill="#3B82F6"/>
+              <!-- Steam waves -->
+              <path d="M85 55C80 45 90 35 85 25" stroke="#EAB308" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+              <path d="M105 50C100 40 110 30 105 20" stroke="#FACC15" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+              <path d="M125 55C120 45 130 35 125 25" stroke="#EAB308" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+              <defs>
+                <linearGradient id="curryGrad" x1="24" y1="75" x2="176" y2="151" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#EAB308"/>
+                  <stop offset="0.5" stop-color="#D97706"/>
+                  <stop offset="1" stop-color="#78350F"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+
+          <div class="floating-store-badge">
+            <div class="store-badge-icon">★</div>
+            <div class="store-badge-text">
+              <h4>本月特選私房專賣店</h4>
+              <p>出示部落客專屬畫面享加料招待</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         3. Curry Categories (推廣各種不同咖哩)
+         ========================================================================== -->
+    <section class="section-py" id="styles">
+      <div class="container">
+        <div class="section-header">
+          <span class="en-tag">CURRY EXPLORATION</span>
+          <h2 class="serif-title section-title">推廣多元風味・探索特色咖哩</h2>
+          <p class="section-subtitle">每一種咖哩都是地理、歷史與香料的藝術。我們為您梳理四大主流與特色流派，滿足挑剔的味蕾。</p>
+        </div>
+
+        <div class="styles-grid">
+          <!-- Style 1: 日式低溫熟成黑咖哩 -->
+          <article class="style-card">
+            <div class="style-icon-wrapper">🍲</div>
+            <span class="badge-yellow" style="margin-bottom: 12px; width: fit-content;">72hr 慢火工藝</span>
+            <h3 class="serif-title">日式低溫熟成黑咖哩</h3>
+            <p>融合焦糖化洋蔥、蘋果、蜂蜜與牛骨高湯，經過數日低溫靜置熟成。口感深邃濃稠，甘醇圓潤且帶有一抹黑可可尾韻。</p>
+            <div class="style-traits">
+              <span class="trait-pill">果香甘醇</span>
+              <span class="trait-pill">厚實濃稠</span>
+              <span class="trait-pill">搭配越光米</span>
+            </div>
+            <div class="style-recommendation">
+              推薦搭配：<strong>厚切和牛漢堡排 / 慢燉牛頰</strong>
+            </div>
+          </article>
+
+          <!-- Style 2: 印度正宗辛香瑪莎拉咖哩 -->
+          <article class="style-card">
+            <div class="style-icon-wrapper">🌶️</div>
+            <span class="badge-yellow" style="margin-bottom: 12px; width: fit-content;">現磨原粒香料</span>
+            <h3 class="serif-title">印度正宗瑪莎拉咖哩</h3>
+            <p>小豆蔻、芫荽籽、茴香與丁香在熱油中現磨爆香。不添加市售咖哩塊，辛香層次直接在舌尖引爆，佐以剛出爐的烤餅更是絕配。</p>
+            <div class="style-traits">
+              <span class="trait-pill">辛香衝擊</span>
+              <span class="trait-pill">多層次餘韻</span>
+              <span class="trait-pill">炭烤蒜香烤餅</span>
+            </div>
+            <div class="style-recommendation">
+              推薦搭配：<strong>坦都里奶油香料雞 / 羊肉咖哩</strong>
+            </div>
+          </article>
+
+          <!-- Style 3: 泰式皇家綠/紅咖哩 -->
+          <article class="style-card">
+            <div class="style-icon-wrapper">🥥</div>
+            <span class="badge-yellow" style="margin-bottom: 12px; width: fit-content;">南洋天然香草</span>
+            <h3 class="serif-title">泰式宮廷青檸綠咖哩</h3>
+            <p>新鮮綠辣椒、檸檬葉、南薑與香茅石臼手舂搗碎，注入初榨濃椰漿。入口滑順溫潤，緊接著綻放清香辛辣，令人胃口大開。</p>
+            <div class="style-traits">
+              <span class="trait-pill">椰奶濃香</span>
+              <span class="trait-pill">酸辣爽口</span>
+              <span class="trait-pill">泰國茉莉香米</span>
+            </div>
+            <div class="style-recommendation">
+              推薦搭配：<strong>炭烤野生草蝦 / 鮮嫩去骨雞腿</strong>
+            </div>
+          </article>
+
+          <!-- Style 4: 歐風法式濃汁咖哩 -->
+          <article class="style-card">
+            <div class="style-icon-wrapper">🍷</div>
+            <span class="badge-yellow" style="margin-bottom: 12px; width: fit-content;">法式頂級高湯</span>
+            <h3 class="serif-title">歐風法式牛頰咖哩</h3>
+            <p>結合法式多蜜醬汁（Demi-glace）與咖哩香料，加入波爾多紅酒與大量根莖野菜低溫煨煮數十小時，散發如絲絨般的奢華光澤。</p>
+            <div class="style-traits">
+              <span class="trait-pill">高級感極致</span>
+              <span class="trait-pill">紅酒溫潤</span>
+              <span class="trait-pill">法式麵包盅</span>
+            </div>
+            <div class="style-recommendation">
+              推薦搭配：<strong>勃根地慢燉牛小排 / 嫩煎鴨胸</strong>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         4. Curry Specialty Stores (吸引消費者前往專門店消費的核心功能)
+         ========================================================================== -->
+    <section class="section-py stores-section" id="shops">
+      <div class="container">
+        <div class="section-header">
+          <span class="en-tag">EXCLUSIVE PARTNER STORES</span>
+          <h2 class="serif-title section-title">特選咖哩專賣店・饕客到店消費指南</h2>
+          <p class="section-subtitle">嚴選全台高評價特色咖哩專賣店。出示咖哩部落客專屬畫面，即享各店專屬加料或折扣禮遇！</p>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="filter-bar" role="toolbar" aria-label="咖哩種類篩選">
+          <button class="filter-btn active" data-filter="all">全部專賣店 (6)</button>
+          <button class="filter-btn" data-filter="japanese">日式熟成</button>
+          <button class="filter-btn" data-filter="indian">印度辛香</button>
+          <button class="filter-btn" data-filter="thai">泰式宮廷</button>
+          <button class="filter-btn" data-filter="european">歐風法式</button>
+          <button class="filter-btn" data-filter="soup">湯咖哩/特色乾咖哩</button>
+        </div>
+
+        <!-- Stores Card Grid -->
+        <div class="stores-grid">
+          
+          <!-- Shop 1 -->
+          <article class="store-card" data-category="japanese">
+            <div class="store-cover">
+              <div class="store-cover-pattern"></div>
+              <span class="store-category-tag">日式熟成黑咖哩</span>
+              <span class="store-rating-tag">★ 4.9 (240則)</span>
+              <!-- Dish Icon Badge -->
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#EAB308" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 7v5l3 3"/>
+              </svg>
+            </div>
+            <div class="store-body">
+              <div class="store-title-wrap">
+                <h3 class="serif-title store-title">琥珀黑研所・熟成咖哩專売</h3>
+                <div class="store-location">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                  <span>台北市大安區敦化南路一段 187 巷</span>
+                </div>
+              </div>
+
+              <div class="signature-dish-box">
+                <div class="signature-label">必點鎮店招牌</div>
+                <div class="signature-name">72小時特濃黑牛筋熟成咖哩佐溫泉蛋</div>
+              </div>
+
+              <p class="store-description">
+                低溫控溫熟成整整三日，洋蔥焦糖香氣濃烈深邃，牛筋燉至入口即化。搭配特選富山縣越光米，每一口都讓人難忘。
+              </p>
+
+              <div class="exclusive-offer-badge">
+                <div class="offer-icon">🎁</div>
+                <div class="offer-text">
+                  <strong>部落客專屬到店禮：</strong>現場出示即享「免費升級炙燒起司」或「溏心蛋一份」
+                </div>
+              </div>
+
+              <div class="store-actions">
+                <button class="btn-detail" onclick="openShopModal('shop1')">查看門市詳情</button>
+                <button class="btn-coupon" onclick="claimCoupon('琥珀黑研所', 'CURRY-AMBER-72')">領取到店券</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Shop 2 -->
+          <article class="store-card" data-category="indian">
+            <div class="store-cover">
+              <div class="store-cover-pattern"></div>
+              <span class="store-category-tag">印度正宗辛香</span>
+              <span class="store-rating-tag">★ 4.8 (188則)</span>
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.8">
+                <polygon points="12 2 15 8 21 9 17 14 18 20 12 17 6 20 7 14 3 9 9 8 12 2"/>
+              </svg>
+            </div>
+            <div class="store-body">
+              <div class="store-title-wrap">
+                <h3 class="serif-title store-title">香料織造所・Masala Lab</h3>
+                <div class="store-location">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                  <span>台中市西區中美街 363 巷</span>
+                </div>
+              </div>
+
+              <div class="signature-dish-box">
+                <div class="signature-label">必點鎮店招牌</div>
+                <div class="signature-name">北印度經典奶油嫩雞佐窯烤起司蒜香饢餅</div>
+              </div>
+
+              <p class="store-description">
+                特聘印度主廚駐店，數十種香料每日清晨現磨。香濃微甜的番茄奶油醬底與炭香雞肉完美呼應，香氣爆棚。
+              </p>
+
+              <div class="exclusive-offer-badge">
+                <div class="offer-icon">🎁</div>
+                <div class="offer-text">
+                  <strong>部落客專屬到店禮：</strong>任點雙人套餐，贈「手煮香料熱奶茶 (Masala Chai)」兩杯
+                </div>
+              </div>
+
+              <div class="store-actions">
+                <button class="btn-detail" onclick="openShopModal('shop2')">查看門市詳情</button>
+                <button class="btn-coupon" onclick="claimCoupon('香料織造所', 'CHAI-MASALA-88')">領取到店券</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Shop 3 -->
+          <article class="store-card" data-category="thai">
+            <div class="store-cover">
+              <div class="store-cover-pattern"></div>
+              <span class="store-category-tag">泰式宮廷料理</span>
+              <span class="store-rating-tag">★ 4.9 (165則)</span>
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#EAB308" stroke-width="1.8">
+                <path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L12 22l7.03-4.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/>
+              </svg>
+            </div>
+            <div class="store-body">
+              <div class="store-title-wrap">
+                <h3 class="serif-title store-title">青翠金芒・泰式宮廷咖哩</h3>
+                <div class="store-location">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                  <span>高雄市鼓山區明誠四路 88 號</span>
+                </div>
+              </div>
+
+              <div class="signature-dish-box">
+                <div class="signature-label">必點鎮店招牌</div>
+                <div class="signature-name">慢烤野生海大蝦青咖哩佐泰國頂級香米</div>
+              </div>
+
+              <p class="store-description">
+                堅持使用南薑、香茅與泰國青小辣椒手工現搗，初榨椰漿帶來奢華絲絨感，鮮甜海大蝦肉質彈牙飽滿。
+              </p>
+
+              <div class="exclusive-offer-badge">
+                <div class="offer-icon">🎁</div>
+                <div class="offer-text">
+                  <strong>部落客專屬到店禮：</strong>現場出示即享「主廚手工南洋香蘭冰淇淋一份」
+                </div>
+              </div>
+
+              <div class="store-actions">
+                <button class="btn-detail" onclick="openShopModal('shop3')">查看門市詳情</button>
+                <button class="btn-coupon" onclick="claimCoupon('青翠金芒', 'THAI-GREEN-VIP')">領取到店券</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Shop 4 -->
+          <article class="store-card" data-category="european">
+            <div class="store-cover">
+              <div class="store-cover-pattern"></div>
+              <span class="store-category-tag">法式歐風名邸</span>
+              <span class="store-rating-tag">★ 4.9 (312則)</span>
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#CA8A04" stroke-width="1.8">
+                <path d="M8 21h8m-4-18v18M5 9l7-5 7 5"/>
+              </svg>
+            </div>
+            <div class="store-body">
+              <div class="store-title-wrap">
+                <h3 class="serif-title store-title">法爾塞斯・歐風紅酒咖哩殿</h3>
+                <div class="store-location">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                  <span>台北市信義區忠孝東路四段 553 巷</span>
+                </div>
+              </div>
+
+              <div class="signature-dish-box">
+                <div class="signature-label">必點鎮店招牌</div>
+                <div class="signature-name">勃根地紅酒燉澳洲牛頰特級黑咖哩</div>
+              </div>
+
+              <p class="store-description">
+                將法式料理精神發揮淋漓盡致。小牛骨高湯加入波爾多紅酒熬煮48小時，牛頰膠質四溢，宛如品味奢華法式料理。
+              </p>
+
+              <div class="exclusive-offer-badge">
+                <div class="offer-icon">🎁</div>
+                <div class="offer-text">
+                  <strong>部落客專屬到店禮：</strong>任點主餐免費升級「黑松露濃湯與手工法棍盅」
+                </div>
+              </div>
+
+              <div class="store-actions">
+                <button class="btn-detail" onclick="openShopModal('shop4')">查看門市詳情</button>
+                <button class="btn-coupon" onclick="claimCoupon('法爾塞斯', 'EURO-WINE-99')">領取到店券</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Shop 5 -->
+          <article class="store-card" data-category="japanese">
+            <div class="store-cover">
+              <div class="store-cover-pattern"></div>
+              <span class="store-category-tag">職人手打漢堡排</span>
+              <span class="store-rating-tag">★ 4.8 (195則)</span>
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#EAB308" stroke-width="1.8">
+                <rect x="3" y="11" width="18" height="10" rx="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div class="store-body">
+              <div class="store-title-wrap">
+                <h3 class="serif-title store-title">晴日和食・金黃炙燒漢堡排咖哩</h3>
+                <div class="store-location">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                  <span>新竹市東區關新路 120 號</span>
+                </div>
+              </div>
+
+              <div class="signature-dish-box">
+                <div class="signature-label">必點鎮店招牌</div>
+                <div class="signature-name">特選雙層爆汁和牛漢堡排佐金黃甘口咖哩</div>
+              </div>
+
+              <p class="store-description">
+                100% 嚴選日本和牛與在地黑豬肉黃金比例拍打，鐵板現煎鎖住肉汁，淋上濃郁金黃咖哩，大人小孩都陶醉。
+              </p>
+
+              <div class="exclusive-offer-badge">
+                <div class="offer-icon">🎁</div>
+                <div class="offer-text">
+                  <strong>部落客專屬到店禮：</strong>出示優惠碼享「店內咖哩醬與白飯免費續一次」
+                </div>
+              </div>
+
+              <div class="store-actions">
+                <button class="btn-detail" onclick="openShopModal('shop5')">查看門市詳情</button>
+                <button class="btn-coupon" onclick="claimCoupon('晴日和食', 'WAGYU-PATTY-2026')">領取到店券</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Shop 6 -->
+          <article class="store-card" data-category="soup">
+            <div class="store-cover">
+              <div class="store-cover-pattern"></div>
+              <span class="store-category-tag">北海道湯咖哩</span>
+              <span class="store-rating-tag">★ 4.9 (220則)</span>
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="1.8">
+                <path d="M4 11a8 8 0 0 1 16 0v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7z"/>
+                <line x1="8" y1="7" x2="8" y2="4"/>
+                <line x1="12" y1="7" x2="12" y2="3"/>
+                <line x1="16" y1="7" x2="16" y2="4"/>
+              </svg>
+            </div>
+            <div class="store-body">
+              <div class="store-title-wrap">
+                <h3 class="serif-title store-title">辛韻・北海道炙燒豚角煮湯咖哩</h3>
+                <div class="store-location">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                  <span>台南市中西區友愛街 115 巷</span>
+                </div>
+              </div>
+
+              <div class="signature-dish-box">
+                <div class="signature-label">必點鎮店招牌</div>
+                <div class="signature-name">特選彩蔬炙燒厚切豚角煮湯咖哩</div>
+              </div>
+
+              <p class="store-description">
+                源自札幌的清爽系香料高湯，搭配炙烤南瓜、蓮藕、青椒等豐富野菜，厚切豚角煮軟嫩入味，辛香清爽不油膩。
+              </p>
+
+              <div class="exclusive-offer-badge">
+                <div class="offer-icon">🎁</div>
+                <div class="offer-text">
+                  <strong>部落客專屬到店禮：</strong>打卡到店即招待「炙烤彩椒野菜串盛合一份」
+                </div>
+              </div>
+
+              <div class="store-actions">
+                <button class="btn-detail" onclick="openShopModal('shop6')">查看門市詳情</button>
+                <button class="btn-coupon" onclick="claimCoupon('辛韻湯咖哩', 'SAPPORO-SOUP-01')">領取到店券</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         5. Artisanal Craft & Flavor Matrix (高級特色與品牌精神)
+         ========================================================================== -->
+    <section class="section-py craft-section" id="craft">
+      <div class="container craft-grid">
+        <div>
+          <span class="en-tag">ARTISANAL PHILOSOPHY</span>
+          <h2 class="serif-title section-title" style="margin-bottom: 20px;">
+            一碗好咖哩<br>來自不妥協的工藝堅持
+          </h2>
+          <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.05rem;">
+            真正的高級特色咖哩絕非市售速成調味塊。我們推薦的專賣店，皆遵循傳承與創新的四大匠心歷程：
+          </p>
+
+          <div class="craft-steps">
+            <div class="craft-step-item">
+              <div class="step-number">01</div>
+              <div class="step-content">
+                <h4 class="serif-title">洋蔥焦糖化工法 (Caramelization)</h4>
+                <p>將大量甜洋蔥以文火連續慢炒數小時，將辛辣化作深邃天然的焦糖琥珀色，構成咖哩基底的靈魂甘甜。</p>
+              </div>
+            </div>
+
+            <div class="craft-step-item">
+              <div class="step-number">02</div>
+              <div class="step-content">
+                <h4 class="serif-title">24種天然原粒香料焙炒</h4>
+                <p>丁香、茴香、芫荽、小荳蔻等原粒香料在特製銅鍋中焙炒醒香，現磨釋放最具穿透力的芳香精油。</p>
+              </div>
+            </div>
+
+            <div class="craft-step-item">
+              <div class="step-number">03</div>
+              <div class="step-content">
+                <h4 class="serif-title">陶鍋低溫靜置熟成 (Aging)</h4>
+                <p>熬煮後靜置低溫熟成48至72小時，讓辛辣轉為圓融溫潤，食材高湯與香料分子緊密交融，層次大躍進。</p>
+              </div>
+            </div>
+
+            <div class="craft-step-item">
+              <div class="step-number">04</div>
+              <div class="step-content">
+                <h4 class="serif-title">頂級米飯契作搭配</h4>
+                <p>精選新瀉越光米或特調薑黃奶油香米，講究每粒米飯的含水量與飽滿Q度，完美吸附醬汁不軟爛。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Flavor Matrix Indicator -->
+        <div class="flavor-matrix-card">
+          <h3 class="serif-title matrix-title">✦ 咖哩風味平衡矩陣 ✦</h3>
+          <p style="text-align: center; color: var(--text-muted); font-size: 0.88rem; margin-bottom: 24px;">
+            專業咖哩評審級五維評鑑系統
+          </p>
+
+          <div class="flavor-bars">
+            <div class="bar-row">
+              <div class="bar-label-group">
+                <span class="bar-name">辛香深度 (Spiciness Depth)</span>
+                <span class="bar-value">95%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 95%;"></div>
+              </div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-label-group">
+                <span class="bar-name">天然果香甘甜 (Natural Sweetness)</span>
+                <span class="bar-value">88%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 88%;"></div>
+              </div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-label-group">
+                <span class="bar-name">醬汁濃稠質地 (Texture & Body)</span>
+                <span class="bar-value">92%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 92%;"></div>
+              </div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-label-group">
+                <span class="bar-name">熟成圓潤感 (Aging Smoothness)</span>
+                <span class="bar-value">96%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 96%;"></div>
+              </div>
+            </div>
+
+            <div class="bar-row">
+              <div class="bar-label-group">
+                <span class="bar-name">米飯包覆契合度 (Rice Pairing)</span>
+                <span class="bar-value">98%</span>
+              </div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width: 98%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 30px; text-align: center;">
+            <a href="#shops" class="btn-gold-outline" style="width: 100%; justify-content: center;">
+              查看達到 90+ 分數的特選專賣店
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         6. Interactive Curry Finder Quiz (3秒尋味推薦)
+         ========================================================================== -->
+    <section class="section-py quiz-section" id="quiz">
+      <div class="container">
+        <div class="section-header">
+          <span class="en-tag">CURRY MATCHMAKER</span>
+          <h2 class="serif-title section-title">今天想吃哪一碗咖哩？</h2>
+          <p class="section-subtitle">點選您的口味偏好，部落客即時為您推薦最契合的咖哩流派與推薦專賣店！</p>
+        </div>
+
+        <div class="quiz-container">
+          <div class="quiz-progress-bar">
+            <div class="progress-pip active" id="pip-1"></div>
+            <div class="progress-pip" id="pip-2"></div>
+            <div class="progress-pip" id="pip-3"></div>
+          </div>
+
+          <!-- Step 1 -->
+          <div class="quiz-step" id="quiz-step-1">
+            <div class="quiz-question-box">
+              <span class="badge-yellow" style="margin-bottom: 12px;">問題 1 / 3</span>
+              <h3>您今天渴望的醬汁濃郁度與口感？</h3>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option-btn" onclick="selectQuizOption(1, 'rich')">
+                <div class="quiz-option-title">濃稠厚實派</div>
+                <div class="quiz-option-desc">焦糖甘醇、醬汁如絲絨般緊緊包裹米飯</div>
+              </button>
+              <button class="quiz-option-btn" onclick="selectQuizOption(1, 'spicy')">
+                <div class="quiz-option-title">香料奔放派</div>
+                <div class="quiz-option-desc">現磨香料顆粒感、熱騰騰辛香撲鼻</div>
+              </button>
+              <button class="quiz-option-btn" onclick="selectQuizOption(1, 'refreshing')">
+                <div class="quiz-option-title">南洋香草高湯派</div>
+                <div class="quiz-option-desc">清爽甘甜、椰漿微辣或蔬菜高湯清香</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="quiz-step" id="quiz-step-2" style="display: none;">
+            <div class="quiz-question-box">
+              <span class="badge-yellow" style="margin-bottom: 12px;">問題 2 / 3</span>
+              <h3>您能接受並喜愛的辣度層級？</h3>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option-btn" onclick="selectQuizOption(2, 'mild')">
+                <div class="quiz-option-title">微辛 / 甘口溫潤</div>
+                <div class="quiz-option-desc">偏好蔬果自然甜味，幾乎不帶刺激辛辣</div>
+              </button>
+              <button class="quiz-option-btn" onclick="selectQuizOption(2, 'medium')">
+                <div class="quiz-option-title">中辛 / 溫和刺激</div>
+                <div class="quiz-option-desc">帶點微汗的過癮感，襯托肉香</div>
+              </button>
+              <button class="quiz-option-btn" onclick="selectQuizOption(2, 'hot')">
+                <div class="quiz-option-title">大辛 / 辛香狂熱</div>
+                <div class="quiz-option-desc">重度嗜辣，追求朝天椒與黑胡椒的痛快衝擊</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="quiz-step" id="quiz-step-3" style="display: none;">
+            <div class="quiz-question-box">
+              <span class="badge-yellow" style="margin-bottom: 12px;">問題 3 / 3</span>
+              <h3>今天最想搭配的主角主食？</h3>
+            </div>
+            <div class="quiz-options">
+              <button class="quiz-option-btn" onclick="selectQuizOption(3, 'beef')">
+                <div class="quiz-option-title">極品牛肉 / 牛頰牛筋</div>
+                <div class="quiz-option-desc">肉香四溢、低溫燉至膠質滿滿</div>
+              </button>
+              <button class="quiz-option-btn" onclick="selectQuizOption(3, 'chicken')">
+                <div class="quiz-option-title">炭烤香料嫩雞肉</div>
+                <div class="quiz-option-desc">外酥內嫩、與酸甜奶油香料醬相得益彰</div>
+              </button>
+              <button class="quiz-option-btn" onclick="selectQuizOption(3, 'pork')">
+                <div class="quiz-option-title">炙燒厚切豚肉或漢堡排</div>
+                <div class="quiz-option-desc">肉汁迸發、搭配起司極致滿足</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quiz Result -->
+          <div class="quiz-result-panel" id="quiz-result">
+            <span class="result-badge">YOUR PERFECT CURRY MATCH</span>
+            <h3 class="serif-title result-title" id="result-title">為您命定推薦：72小時低溫熟成黑牛筋咖哩！</h3>
+            <p class="result-desc" id="result-desc">
+              根據您的偏好，您最適合帶有深沉甘醇果香與濃厚肉汁的熟成黑咖哩！推薦您前往信義區或大安區的特色專賣店，親自品嚐那勺銷魂醬汁。
+            </p>
+            <div class="result-action-group">
+              <a href="#shops" class="btn-gold-solid" onclick="document.querySelector('[data-filter=japanese]').click()">
+                立即查看推薦專賣店
+              </a>
+              <button class="btn-gold-outline" onclick="resetQuiz()">重新測驗</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         7. Foodie Newsletter (持續吸引消費與會員社群)
+         ========================================================================== -->
+    <section class="section-py newsletter-section" id="newsletter">
+      <div class="container">
+        <div class="newsletter-card">
+          <span class="en-tag">STAY SPICED UP</span>
+          <h3 class="serif-title">訂閱每週「咖哩探店密報」</h3>
+          <p>每週五準時寄送全台隱藏版特色咖哩專賣店深度評測，並獨家搶先解鎖專賣店每月限量到店加料券！</p>
+          <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+            <input type="email" class="newsletter-input" placeholder="輸入您的電子信箱 (例：curry@gourmet.tw)" required aria-label="電子信箱">
+            <button type="submit" class="btn-gold-solid" style="padding: 12px 24px;">免費訂閱</button>
+          </form>
+          <small style="color: var(--text-muted); display: block; margin-top: 14px; font-size: 0.8rem;">
+            已有 8,400+ 位咖哩狂熱者加入，絕無廣告垃圾信，可隨時取消訂閱。
+          </small>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       8. Footer Section
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="brand-logo" style="margin-bottom: 8px;">
+            <div class="brand-icon-box" style="width: 36px; height: 36px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M12 2a8 8 0 0 0-8 8v1a6 6 0 0 0 6 6h4a6 6 0 0 0 6-6v-1a8 8 0 0 0-8-8z"/>
+                <path d="M6 17v2a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3v-2"/>
+              </svg>
+            </div>
+            <span>咖哩部落客</span>
+          </a>
+          <p>
+            「尋訪極致辛香，品味每一勺靈魂咖哩。」我們深信每一碗用心熬製的咖哩專賣店，都值得被更多熱愛美食的靈魂遇見。
+          </p>
+          <div style="margin-top: 14px;">
+            <span class="author-badge">
+              <span>製作學號：11419941</span>
+              <span>•</span>
+              <span>作者：楊佑笙</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>探索分類</h4>
+          <ul class="footer-links">
+            <li><a href="#styles">日式熟成黑咖哩</a></li>
+            <li><a href="#styles">印度瑪莎拉香料</a></li>
+            <li><a href="#styles">泰式宮廷綠紅咖哩</a></li>
+            <li><a href="#styles">歐風紅酒牛頰咖哩</a></li>
+            <li><a href="#styles">北海道湯咖哩指南</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>專賣店合作</h4>
+          <ul class="footer-links">
+            <li><a href="#shops">推薦專賣店名單</a></li>
+            <li><a href="#shops">領取獨家到店招待禮</a></li>
+            <li><a href="#newsletter">店家採訪與踩點合作</a></li>
+            <li><a href="#craft">風味評鑑標準須知</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>網站規格聲明</h4>
+          <ul class="footer-links">
+            <li><span style="color: var(--primary-yellow);">名稱：咖哩部落客</span></li>
+            <li><span>風格：高級、特色咖哩</span></li>
+            <li><span>核心色調：品牌黃色</span></li>
+            <li><span>目標：引導讀者至專賣店消費</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 咖哩部落客 CURRY BLOGGER. All Rights Reserved. 網頁規格作業實作.</p>
+        <p style="color: var(--primary-yellow); font-weight: 600;">Designed with Pure HTML5, Modern CSS & Vanilla JS</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       9. Store Details & Exclusive Coupon Modal (<dialog>)
+       ========================================================================== -->
+  <dialog class="modal-dialog" id="shop-dialog" aria-labelledby="dialog-store-title">
+    <div class="modal-header">
+      <h3 class="serif-title modal-title" id="dialog-store-title">專賣店詳情與到店招待券</h3>
+      <button class="modal-close-btn" onclick="closeShopModal()" aria-label="關閉視窗">&times;</button>
+    </div>
+
+    <div class="modal-content">
+      <div class="coupon-ticket">
+        <div class="coupon-head">
+          <span class="coupon-tag">部落客讀者專屬禮遇</span>
+          <span style="font-size: 0.75rem; color: var(--primary-yellow);">到店出示即享優惠</span>
+        </div>
+        <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-white);" id="dialog-offer-desc">
+          點任一咖哩套餐，免費招待「炙燒莫札瑞拉起司」一份
+        </div>
+        <div class="coupon-code-box">
+          <div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">專屬優惠代碼 (可複製)</div>
+            <div class="coupon-code" id="dialog-coupon-code">CURRY-AMBER-72</div>
+          </div>
+          <button class="btn-copy-code" onclick="copyCouponCode()">複製代碼</button>
+        </div>
+      </div>
+
+      <div class="store-meta-list">
+        <div class="store-meta-row">
+          <span class="meta-label">營業時間：</span>
+          <span id="dialog-hours">週二至週日 11:30 - 14:30 / 17:30 - 21:00 (週一公休)</span>
+        </div>
+        <div class="store-meta-row">
+          <span class="meta-label">門市地址：</span>
+          <span id="dialog-address">台北市大安區敦化南路一段 187 巷 26 號</span>
+        </div>
+        <div class="store-meta-row">
+          <span class="meta-label">聯絡電話：</span>
+          <span id="dialog-phone">02-2771-8899 (支援線上訂位)</span>
+        </div>
+        <div class="store-meta-row">
+          <span class="meta-label">招牌推薦：</span>
+          <span id="dialog-specialty" style="color: var(--primary-yellow); font-weight: 600;">72小時特濃黑牛筋熟成咖哩</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-detail" onclick="closeShopModal()">稍後再看</button>
+      <button class="btn-gold-solid" onclick="openMap()" style="padding: 10px 20px;">
+        <span>開啟 Google 地圖導航</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </button>
+    </div>
+  </dialog>
+
+  <!-- Toast Notification Pop-up -->
+  <div class="toast-notice" id="toast-notice" role="alert" aria-live="polite">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toast-text">優惠代碼已成功複製！到店出示即可享招待。</span>
+  </div>
+
+  <!-- ==========================================================================
+       10. Client-Side Interactions (Vanilla JavaScript)
+       ========================================================================== -->
+  <script>
+    // 門市資料庫 (吸引喜歡吃咖哩的人到各家咖哩專賣店消費)
+    const STORES_DATA = {
+      shop1: {
+        name: "琥珀黑研所・熟成咖哩專売",
+        category: "japanese",
+        address: "台北市大安區敦化南路一段 187 巷 26 號",
+        hours: "週二至週日 11:30 - 14:30 / 17:30 - 21:00 (週一公休)",
+        phone: "02-2771-8899",
+        specialty: "72小時特濃黑牛筋熟成咖哩佐溫泉蛋",
+        offer: "現場出示即享「免費升級炙燒起司」或「溏心蛋一份」",
+        code: "CURRY-AMBER-72",
+        mapQuery: "台北市大安區敦化南路一段187巷"
+      },
+      shop2: {
+        name: "香料織造所・Masala Lab",
+        category: "indian",
+        address: "台中市西區中美街 363 巷 12 號",
+        hours: "週三至週日 12:00 - 15:00 / 17:30 - 21:30 (週一二公休)",
+        phone: "04-2301-5678",
+        specialty: "北印度經典奶油嫩雞佐窯烤起司蒜香饢餅",
+        offer: "任點雙人套餐，贈「手煮香料熱奶茶 (Masala Chai)」兩杯",
+        code: "CHAI-MASALA-88",
+        mapQuery: "台中市西區中美街363巷"
+      },
+      shop3: {
+        name: "青翠金芒・泰式宮廷咖哩",
+        category: "thai",
+        address: "高雄市鼓山區明誠四路 88 號",
+        hours: "週一至週日 11:30 - 14:30 / 17:30 - 21:30",
+        phone: "07-552-3321",
+        specialty: "慢烤野生海大蝦青咖哩佐泰國頂級香米",
+        offer: "現場出示即享「主廚手工南洋香蘭冰淇淋一份」",
+        code: "THAI-GREEN-VIP",
+        mapQuery: "高雄市鼓山區明誠四路88號"
+      },
+      shop4: {
+        name: "法爾塞斯・歐風紅酒咖哩殿",
+        category: "european",
+        address: "台北市信義區忠孝東路四段 553 巷 18 號",
+        hours: "週二至週日 12:00 - 15:00 / 18:00 - 22:00",
+        phone: "02-2766-9900",
+        specialty: "勃根地紅酒燉澳洲牛頰特級黑咖哩",
+        offer: "任點主餐免費升級「黑松露濃湯與手工法棍盅」",
+        code: "EURO-WINE-99",
+        mapQuery: "台北市信義區忠孝東路四段553巷"
+      },
+      shop5: {
+        name: "晴日和食・金黃炙燒漢堡排咖哩",
+        category: "japanese",
+        address: "新竹市東區關新路 120 號",
+        hours: "週一至週日 11:00 - 14:00 / 17:00 - 20:30",
+        phone: "03-668-2345",
+        specialty: "特選雙層爆汁和牛漢堡排佐金黃甘口咖哩",
+        offer: "出示優惠碼享「店內咖哩醬與白飯免費續一次」",
+        code: "WAGYU-PATTY-2026",
+        mapQuery: "新竹市東區關新路120號"
+      },
+      shop6: {
+        name: "辛韻・北海道炙燒豚角煮湯咖哩",
+        category: "soup",
+        address: "台南市中西區友愛街 115 巷 9 號",
+        hours: "週四至週二 11:30 - 15:00 / 17:00 - 21:00 (週三公休)",
+        phone: "06-221-7788",
+        specialty: "特選彩蔬炙燒厚切豚角煮湯咖哩",
+        offer: "打卡到店即招待「炙烤彩椒野菜串盛合一份」",
+        code: "SAPPORO-SOUP-01",
+        mapQuery: "台南市中西區友愛街115巷"
+      }
+    };
+
+    let currentShopKey = "shop1";
+
+    // 1. 咖哩專賣店篩選器
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const storeCards = document.querySelectorAll(".store-card");
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const filterValue = btn.getAttribute("data-filter");
+
+        storeCards.forEach(card => {
+          const category = card.getAttribute("data-category");
+          if (filterValue === "all" || category === filterValue) {
+            card.style.display = "flex";
+            card.style.animation = "fadeIn 0.35s ease forwards";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    });
+
+    // 2. 開啟專賣店詳情彈窗 (<dialog>)
+    const shopDialog = document.getElementById("shop-dialog");
+
+    function openShopModal(shopKey) {
+      currentShopKey = shopKey;
+      const data = STORES_DATA[shopKey];
+      if (!data) return;
+
+      document.getElementById("dialog-store-title").textContent = data.name;
+      document.getElementById("dialog-offer-desc").textContent = data.offer;
+      document.getElementById("dialog-coupon-code").textContent = data.code;
+      document.getElementById("dialog-hours").textContent = data.hours;
+      document.getElementById("dialog-address").textContent = data.address;
+      document.getElementById("dialog-phone").textContent = data.phone;
+      document.getElementById("dialog-specialty").textContent = data.specialty;
+
+      shopDialog.showModal();
+    }
+
+    function closeShopModal() {
+      shopDialog.close();
+    }
+
+    // 點擊背景可關閉 dialog
+    shopDialog.addEventListener("click", (e) => {
+      const dialogDimensions = shopDialog.getBoundingClientRect();
+      if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
+      ) {
+        shopDialog.close();
+      }
+    });
+
+    // 3. 領取到店券 & 複製優惠碼
+    function claimCoupon(shopName, code) {
+      navigator.clipboard.writeText(code).then(() => {
+        showToast(`已領取【${shopName}】專屬代碼：${code}！到店出示即可享招待。`);
+      }).catch(() => {
+        showToast(`【${shopName}】專屬招待碼：${code} (請截圖或至門市出示)`);
+      });
+    }
+
+    function copyCouponCode() {
+      const code = document.getElementById("dialog-coupon-code").textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        showToast(`優惠代碼「${code}」已複製到剪貼簿！`);
+      });
+    }
+
+    // 4. 地圖導航連結
+    function openMap() {
+      const data = STORES_DATA[currentShopKey];
+      if (!data) return;
+      const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.mapQuery)}`;
+      window.open(url, "_blank");
+    }
+
+    // 5. Toast 訊息提示
+    function showToast(message) {
+      const toast = document.getElementById("toast-notice");
+      document.getElementById("toast-text").textContent = message;
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 4000);
+    }
+
+    // 6. 3秒尋味測驗 (Curry Matching Quiz)
+    const quizState = {
+      step1: null,
+      step2: null,
+      step3: null
+    };
+
+    function selectQuizOption(step, value) {
+      quizState["step" + step] = value;
+
+      if (step === 1) {
+        document.getElementById("quiz-step-1").style.display = "none";
+        document.getElementById("quiz-step-2").style.display = "block";
+        document.getElementById("pip-2").classList.add("active");
+      } else if (step === 2) {
+        document.getElementById("quiz-step-2").style.display = "none";
+        document.getElementById("quiz-step-3").style.display = "block";
+        document.getElementById("pip-3").classList.add("active");
+      } else if (step === 3) {
+        document.getElementById("quiz-step-3").style.display = "none";
+        showQuizResult();
+      }
+    }
+
+    function showQuizResult() {
+      const resultPanel = document.getElementById("quiz-result");
+      const titleElem = document.getElementById("result-title");
+      const descElem = document.getElementById("result-desc");
+
+      if (quizState.step1 === "rich" || quizState.step3 === "beef") {
+        titleElem.textContent = "為您命定推薦：72小時低溫熟成黑牛筋咖哩！";
+        descElem.textContent = "您喜愛濃稠深沉的醬汁與牛肉的醇香。推薦您造訪【琥珀黑研所】或【法爾塞斯】，感受焦糖洋蔥與紅酒低溫熟成的奢華滋味，到店記得領取招待券！";
+      } else if (quizState.step1 === "spicy" || quizState.step3 === "chicken") {
+        titleElem.textContent = "為您命定推薦：印度正宗現磨香料奶油嫩雞咖哩！";
+        descElem.textContent = "熱情奔放的辛香料是您的靈魂伴侶！推薦您造訪【香料織造所・Masala Lab】，現磨小荳蔻與烤餅的炭香絕對讓您驚艷！";
+      } else {
+        titleElem.textContent = "為您命定推薦：泰式皇家青檸綠咖哩或北海道湯咖哩！";
+        descElem.textContent = "您偏好清爽草本與鮮甜高湯！推薦造訪【青翠金芒】或【辛韻・湯咖哩】，享受南薑香茅與野菜炙燒帶來的多重平衡口感！";
+      }
+
+      resultPanel.style.display = "block";
+    }
+
+    function resetQuiz() {
+      quizState.step1 = null;
+      quizState.step2 = null;
+      quizState.step3 = null;
+      document.getElementById("pip-2").classList.remove("active");
+      document.getElementById("pip-3").classList.remove("active");
+      document.getElementById("quiz-result").style.display = "none";
+      document.getElementById("quiz-step-1").style.display = "block";
+      document.getElementById("quiz-step-2").style.display = "none";
+      document.getElementById("quiz-step-3").style.display = "none";
+    }
+
+    // 7. 電子報訂閱處理
+    function handleSubscribe(e) {
+      e.preventDefault();
+      const input = e.target.querySelector("input");
+      if (input.value) {
+        showToast("感謝訂閱！首份專賣店每月招待券已寄送至您的信箱。");
+        input.value = "";
+      }
+    }
+  </script>
+</body>
+</html>
