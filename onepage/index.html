@@ -1173,6 +1173,19 @@
       padding-left: 4px;
     }
 
+    .footer-desc {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-top: 2px;
+      transition: color 0.25s ease;
+    }
+
+    .footer-links a:hover .footer-desc {
+      color: var(--primary-yellow-hover);
+    }
+
     .footer-bottom {
       padding-top: 28px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -1445,11 +1458,11 @@
 
       <nav aria-label="主要導覽選單">
         <ul class="nav-links">
-          <li><a href="#styles" class="nav-link">探索風味</a></li>
+          <li><a href="#styles" class="nav-link">探索各國不同種風味</a></li>
           <li><a href="#shops" class="nav-link">特色專賣店</a></li>
           <li><a href="#craft" class="nav-link">職人熟成工藝</a></li>
           <li><a href="#quiz" class="nav-link">尋味測驗</a></li>
-          <li><a href="#newsletter" class="nav-link">饕客週報</a></li>
+          <li><a href="#newsletter" class="nav-link">饕客月報</a></li>
         </ul>
       </nav>
 
@@ -1496,8 +1509,8 @@
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </a>
-            <a href="#quiz" class="btn-gold-outline">
-              <span>3秒咖哩尋味測驗 💡</span>
+            <a href="#quiz" class="btn-gold-outline" onclick="randomCurry();">
+              <span>點擊按鈕隨機生成一種咖哩 💡</span>
             </a>
           </div>
 
@@ -2135,10 +2148,11 @@
               根據您的偏好，您最適合帶有深沉甘醇果香與濃厚肉汁的熟成黑咖哩！推薦您前往信義區或大安區的特色專賣店，親自品嚐那勺銷魂醬汁。
             </p>
             <div class="result-action-group">
-              <a href="#shops" class="btn-gold-solid" onclick="document.querySelector('[data-filter=japanese]').click()">
+              <a href="#shops" class="btn-gold-solid" id="result-shop-link" onclick="handleResultShopClick()">
                 立即查看推薦專賣店
               </a>
-              <button class="btn-gold-outline" onclick="resetQuiz()">重新測驗</button>
+              <button class="btn-gold-outline" onclick="randomCurry()">🎲 隨機換一種</button>
+              <button class="btn-gold-outline" onclick="resetQuiz()">重新測驗 ↺</button>
             </div>
           </div>
 
@@ -2198,11 +2212,11 @@
         <div class="footer-col">
           <h4>探索分類</h4>
           <ul class="footer-links">
-            <li><a href="#styles">日式熟成黑咖哩</a></li>
-            <li><a href="#styles">印度瑪莎拉香料</a></li>
-            <li><a href="#styles">泰式宮廷綠紅咖哩</a></li>
-            <li><a href="#styles">歐風紅酒牛頰咖哩</a></li>
-            <li><a href="#styles">北海道湯咖哩指南</a></li>
+            <li><a href="#styles">日式熟成黑咖哩 <span class="footer-desc">72hr慢火工藝焦糖果香</span></a></li>
+            <li><a href="#styles">印度瑪莎拉香料 <span class="footer-desc">現磨原粒辛香多層次</span></a></li>
+            <li><a href="#styles">泰式宮廷綠紅咖哩 <span class="footer-desc">南洋香草椰漿溫潤清香</span></a></li>
+            <li><a href="#styles">歐風紅酒牛頰咖哩 <span class="footer-desc">法式多蜜波爾多絲絨醬</span></a></li>
+            <li><a href="#styles">北海道湯咖哩指南 <span class="footer-desc">彩蔬炙燒豚角煮清甜高湯</span></a></li>
           </ul>
         </div>
 
@@ -2465,12 +2479,19 @@
       }, 4000);
     }
 
-    // 6. 3秒尋味測驗 (Curry Matching Quiz)
+    // 6. 3秒尋味測驗 (Curry Matching Quiz) & 隨機生成咖哩
     const quizState = {
       step1: null,
       step2: null,
       step3: null
     };
+
+    let currentResultCategory = "japanese";
+
+    function handleResultShopClick() {
+      const targetBtn = document.querySelector(`[data-filter="${currentResultCategory}"]`) || document.querySelector('[data-filter="all"]');
+      if (targetBtn) targetBtn.click();
+    }
 
     function selectQuizOption(step, value) {
       quizState["step" + step] = value;
@@ -2495,17 +2516,79 @@
       const descElem = document.getElementById("result-desc");
 
       if (quizState.step1 === "rich" || quizState.step3 === "beef") {
+        currentResultCategory = "japanese";
         titleElem.textContent = "為您命定推薦：72小時低溫熟成黑牛筋咖哩！";
         descElem.textContent = "您喜愛濃稠深沉的醬汁與牛肉的醇香。推薦您造訪【琥珀黑研所】或【法爾塞斯】，感受焦糖洋蔥與紅酒低溫熟成的奢華滋味，到店記得領取招待券！";
       } else if (quizState.step1 === "spicy" || quizState.step3 === "chicken") {
+        currentResultCategory = "indian";
         titleElem.textContent = "為您命定推薦：印度正宗現磨香料奶油嫩雞咖哩！";
         descElem.textContent = "熱情奔放的辛香料是您的靈魂伴侶！推薦您造訪【香料織造所・Masala Lab】，現磨小荳蔻與烤餅的炭香絕對讓您驚艷！";
       } else {
+        currentResultCategory = "thai";
         titleElem.textContent = "為您命定推薦：泰式皇家青檸綠咖哩或北海道湯咖哩！";
         descElem.textContent = "您偏好清爽草本與鮮甜高湯！推薦造訪【青翠金芒】或【辛韻・湯咖哩】，享受南薑香茅與野菜炙燒帶來的多重平衡口感！";
       }
 
       resultPanel.style.display = "block";
+    }
+
+    // 隨機生成一種咖哩推薦 (符合規格需求：點擊按鈕隨機生成一種咖哩)
+    function randomCurry() {
+      const curries = [
+        {
+          title: "為您命定推薦：72小時低溫熟成黑牛筋咖哩！",
+          desc: "您偏好極致濃郁與深度醇厚。推薦造訪【琥珀黑研所】，享受焦糖化洋蔥與慢熬牛骨高湯的甘醇黑可可尾韻，現場領券享起司升級！",
+          category: "japanese"
+        },
+        {
+          title: "為您命定推薦：印度正宗現磨香料奶油嫩雞咖哩！",
+          desc: "熱情奔放的現磨香料直擊味蕾！推薦造訪【香料織造所・Masala Lab】，窯烤蒜香烤餅與特製香料熱奶茶是絕妙搭配！",
+          category: "indian"
+        },
+        {
+          title: "為您命定推薦：泰式皇家青檸綠咖哩佐野生草蝦！",
+          desc: "天然青草香氣與濃醇椰漿的極致交響。推薦造訪【青翠金芒】，慢烤野生大蝦配泰國茉莉香米，酸辣清爽過癮！",
+          category: "thai"
+        },
+        {
+          title: "為您命定推薦：法式勃根地紅酒慢燉牛頰咖哩！",
+          desc: "法式多蜜醬汁與波爾多紅酒的絲絨奢華！推薦造訪【法爾塞斯・歐風紅酒咖哩殿】，到店出示招待碼享黑松露濃湯禮遇！",
+          category: "european"
+        },
+        {
+          title: "為您命定推薦：晴日和食特選爆汁和牛漢堡排咖哩！",
+          desc: "雙層爆汁和牛漢堡排與金黃甘口咖哩！推薦造訪【晴日和食】，出示部落客專屬代碼享店內咖哩醬與白飯免費續！",
+          category: "japanese"
+        },
+        {
+          title: "為您命定推薦：北海道炙燒豚角煮野菜湯咖哩！",
+          desc: "彩蔬清甜高湯與炙烤厚切豚角煮的極致平衡！推薦造訪【辛韻・湯咖哩】，打卡到店即招待彩椒野菜串盛合！",
+          category: "soup"
+        }
+      ];
+
+      const picked = curries[Math.floor(Math.random() * curries.length)];
+      currentResultCategory = picked.category;
+
+      const resultPanel = document.getElementById("quiz-result");
+      const titleElem = document.getElementById("result-title");
+      const descElem = document.getElementById("result-desc");
+      titleElem.textContent = picked.title;
+      descElem.textContent = picked.desc;
+
+      document.getElementById("quiz-step-1").style.display = "none";
+      document.getElementById("quiz-step-2").style.display = "none";
+      document.getElementById("quiz-step-3").style.display = "none";
+      document.getElementById("pip-1").classList.add("active");
+      document.getElementById("pip-2").classList.add("active");
+      document.getElementById("pip-3").classList.add("active");
+      resultPanel.style.display = "block";
+
+      const quizElem = document.getElementById("quiz");
+      if (quizElem) {
+        quizElem.scrollIntoView({ behavior: "smooth" });
+      }
+      showToast("✨ 已為您隨機生成今日推薦咖哩！");
     }
 
     function resetQuiz() {
